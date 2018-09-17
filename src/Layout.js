@@ -1,7 +1,6 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import withTheme from "@material-ui/core/styles/withTheme";
-import NavBar from "./elements/NavBar";
 import { ThemeProvider } from "styled-components";
 
 class Layout extends React.Component {
@@ -11,10 +10,7 @@ class Layout extends React.Component {
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-          <main>
-            <NavBar />
-            {children}
-          </main>
+          <main>{children}</main>
         </React.Fragment>
       </ThemeProvider>
     );

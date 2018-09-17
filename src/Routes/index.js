@@ -1,13 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
+import NavBar from "../elements/NavBar";
 import Login from "../pages/Login";
+import EventTypes from "../pages/EventTypes";
 import Layout from "../Layout";
 import SignUp from "../pages/SignUp";
+import NewEvent from "../pages/NewEvent";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Home = () => <div>Home</div>;
-const Billboard = () => <div>Billboard</div>;
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => (
   <Route
@@ -30,12 +31,24 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => (
 const Routes = ({ authed }) => (
   <Router>
     <Layout>
+      <NavBar authed={authed} />
       <PrivateRoute exact authed={authed} path="/" component={Home} />
-      <PrivateRoute authed={authed} path="/billboards" component={Billboard} />
+      <PrivateRoute
+        exact
+        authed={authed}
+        path="/new-event"
+        component={NewEvent}
+      />
+      <PrivateRoute
+        authed={authed}
+        path="/event-types"
+        component={EventTypes}
+      />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
     </Layout>
   </Router>
 );
 
-export default connect(state => ({ authed: state.login.authed }))(Routes);
+//TODO export default connect(state => ({ authed: state.login.authed }))(Routes);
+export default connect(state => ({ authed: true }))(Routes);

@@ -2,7 +2,7 @@ import React from "react";
 
 import Typography from "@material-ui/core/Typography";
 
-import { Form, Layout, MainPaper } from "../form/Layout";
+import { Form, Layout, MainPaper } from "../form/FormLayout";
 
 import { SubmitButton } from "../form/Buttons";
 

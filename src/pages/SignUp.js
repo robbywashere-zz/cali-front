@@ -1,16 +1,10 @@
 import React from "react";
-
 import Typography from "@material-ui/core/Typography";
-
-import { Form, Layout, MainPaper } from "../form/Layout";
-
-import { SubmitButton } from "../form/Buttons";
-
+import { Form, Layout, MainPaper } from "form/FormLayout";
+import { SubmitButton } from "form/Buttons";
 import axios from "axios";
-
-import { Password, TextField } from "../form/Fields";
-
-import { LockAvatar } from "../form/Misc";
+import { Password, TextField } from "form/Fields";
+import { LockAvatar } from "form/Misc";
 
 class SignUp extends React.Component {
   submit = async event => {
