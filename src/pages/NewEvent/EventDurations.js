@@ -3,7 +3,7 @@ import React from "react";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import CalendarIcon from "@material-ui/icons/CalendarToday";
+import InsertInvitationIcon from "@material-ui/icons/InsertInvitation";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { NewEventHeader } from "./EventHeader";
@@ -89,5 +89,6 @@ export function EventDurations() {
 }
 const EventTimeHeader = withProps({
   color: ({ theme: t }) => t.palette.primary.light,
-  icon: CalendarIcon
+  icon: InsertInvitationIcon,
+  title: "Duration / Schedule"
 })(NewEventHeader);

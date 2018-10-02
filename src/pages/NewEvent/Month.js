@@ -11,13 +11,7 @@ export const DayRow = styled.div`
   grid-template-columns: repeat(7, 1fr);
   grid-auto-flow: dense;
 `;
-export const DayLabel = styled(props => (
-  <Typography align="left" {...props}>
-    {props.text}
-  </Typography>
-))`
-  padding: ${p => p.theme.spacing.unit}px;
-`;
+
 export const DayRowLabel = ({ text }) => (
   <Typography align="center">{text}</Typography>
 );

@@ -2,10 +2,15 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Grid,
   FormLabel,
   Button,
   Typography
 } from "@material-ui/core";
+
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import { Item, Row } from "../../elements/Gridding";
@@ -18,6 +23,8 @@ import { CalendarControl, withCalendarContext } from "./CalendarController";
 import { Day } from "./Day";
 import { ModalState } from "./ModalState";
 import { TabState } from "./TabState";
+import styled from "styled-components";
+import { lighten } from "polished";
 
 let ACModalController = compose(
   ModalState,
@@ -28,6 +35,38 @@ let ACModalController = compose(
 export const DayWithCalendarContext = withCalendarContext(Day);
 
 export const DAYS = "1,2,3,4,5,6,7".split(",").map(i => parseInt(i));
+
+const CalendarHeaderContainer = styled.div`
+  width: 100%;
+  height: 42px;
+  position: absolute;
+  line-height: 42px;
+  vertical-align: middle;
+  padding-top: ${p => p.theme.spacing.unit}px;
+  padding-bottom: ${p => p.theme.spacing.unit}px;
+`;
+
+const CalendarMonthDirectionContainer = styled(Container).attrs({
+  justify: "flex-end"
+})`
+  padding-top: ${p => p.theme.spacing.unit}px;
+  padding-bottom: ${p => p.theme.spacing.unit}px;
+`;
+
+const CalendarHeaderText = styled(Typography).attrs({
+  variant: "subheading",
+  align: "center"
+})`
+  line-height: 42px !important;
+  vertical-align: middle;
+  font-size: 24px !important;
+`;
+
+const CalendarHeader = ({ children }) => (
+  <CalendarHeaderContainer>
+    <CalendarHeaderText>{children}</CalendarHeaderText>
+  </CalendarHeaderContainer>
+);
 
 const AvailabilityCalendarModal = ACModalController(function ACModal({
   open,
@@ -72,17 +111,20 @@ export function AvailabilityCalendar({ tabState, changeTab }) {
         </AppBar>
       </CalendarContainer>
       <Container>
-        <Row>
-          <Item>
-            <Typography variant="subheading" align="center">
-              Month
-            </Typography>
-          </Item>
-          <Item>
-            <Button variant="outlined">"!!!"</Button>
-            <Button variant="outlined">"!!!"</Button>
-          </Item>
-        </Row>
+        <Container justify="flex-end">
+          <CalendarHeader>September 28 - October 31, 2018 </CalendarHeader>
+          <CalendarMonthDirectionContainer>
+            <Button color="primary" size="small">
+              <ArrowLeftIcon />
+            </Button>
+            <Button color="primary">
+              <ArrowRightIcon />
+            </Button>
+            <Button color="primary">
+              <CalendarTodayIcon />
+            </Button>
+          </CalendarMonthDirectionContainer>
+        </Container>
         <CalendarControl>
           <AvailabilityCalendarModal>
             {({ handleOpen: onSelectDays }) => (
