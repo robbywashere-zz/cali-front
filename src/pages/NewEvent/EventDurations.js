@@ -13,8 +13,8 @@ import { EventDurationsSelect } from "./EventDurationsSelect";
 import FormControl from "@material-ui/core/FormControl";
 import Paper from "@material-ui/core/Paper";
 import { FormInfoEdit } from "./FormInfoEdit";
-import { AvailabilityModal } from "./AvailabilityModal";
-import { AvailabilityCalendar } from "./Calendar";
+import AvailabilityModal from "./AvailabilityModal";
+import AvailabilityCalendar from "./AvailabilityCalendar";
 
 function AvailabilityEditModal() {
   return (
