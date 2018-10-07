@@ -18,7 +18,7 @@ import { EventDurations } from "./EventDurations";
 import { FormActions } from "./FormActions";
 import { Button } from "@material-ui/core";
 
-const NewEventFormik = compose(
+export const NewEventFormik = compose(
   withFormik({
     validateOnChange: true,
     validate: (values, props) => {
@@ -85,7 +85,7 @@ const NewEventDetails = ({
 
 const NewEventDetailsWithWatcher = withWatchColorName(NewEventDetails);
 
-const NewEventPage = () => (
+export const NewEventPage = () => (
   <Page>
     <Row>
       <Title>New Event</Title>

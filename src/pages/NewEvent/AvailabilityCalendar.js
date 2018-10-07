@@ -93,6 +93,33 @@ const AvailabilityCalendarModal = ACModalController(function ACModal({
   );
 });
 
+export function AvailabilityCalendarComponent() {
+  return (
+    <React.Fragment>
+      <Container justify="flex-end">
+        <CalendarHeader>September 28 - October 31, 2018 </CalendarHeader>
+        <CalendarMonthDirectionContainer>
+          <Button color="primary" size="small">
+            <ArrowLeftIcon />
+          </Button>
+          <Button color="primary">
+            <ArrowRightIcon />
+          </Button>
+          <Button color="primary">
+            <CalendarTodayIcon />
+          </Button>
+        </CalendarMonthDirectionContainer>
+      </Container>
+      <CalendarControl>
+        <AvailabilityCalendarModal>
+          {({ handleOpen: onSelectDays }) => (
+            <Calendar onSelectDays={onSelectDays} />
+          )}
+        </AvailabilityCalendarModal>
+      </CalendarControl>
+    </React.Fragment>
+  );
+}
 export function AvailabilityCalendar({ tabState, changeTab }) {
   return (
     <React.Fragment>
@@ -111,27 +138,7 @@ export function AvailabilityCalendar({ tabState, changeTab }) {
         </AppBar>
       </CalendarContainer>
       <Container>
-        <Container justify="flex-end">
-          <CalendarHeader>September 28 - October 31, 2018 </CalendarHeader>
-          <CalendarMonthDirectionContainer>
-            <Button color="primary" size="small">
-              <ArrowLeftIcon />
-            </Button>
-            <Button color="primary">
-              <ArrowRightIcon />
-            </Button>
-            <Button color="primary">
-              <CalendarTodayIcon />
-            </Button>
-          </CalendarMonthDirectionContainer>
-        </Container>
-        <CalendarControl>
-          <AvailabilityCalendarModal>
-            {({ handleOpen: onSelectDays }) => (
-              <Calendar onSelectDays={onSelectDays} />
-            )}
-          </AvailabilityCalendarModal>
-        </CalendarControl>
+        <AvailabilityCalendarComponent />
       </Container>
     </React.Fragment>
   );
