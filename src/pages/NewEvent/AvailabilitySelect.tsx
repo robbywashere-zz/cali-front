@@ -1,7 +1,13 @@
 import Select from "@material-ui/core/Select";
 import React from "react";
 import { FormControl, MenuItem, InputLabel } from "@material-ui/core";
-export function AvailabilitySelect({ value, handleChange }) {
+
+export enum availabilityTypes {
+  ROLLING,
+  RANGE,
+  INDEF
+}
+export function AvailabilitySelect({ value: availabilityTypes, handleChange }) {
   return (
     <FormControl fullWidth margin="normal">
       <InputLabel shrink htmlFor="available">
@@ -15,13 +21,12 @@ export function AvailabilitySelect({ value, handleChange }) {
           id: "available"
         }}
       >
-        <MenuItem value={ROLLING}>Over a period of rolling days</MenuItem>
-        <MenuItem value={RANGE}>Over a date range</MenuItem>
-        <MenuItem value={INDEF}>Indefinitely</MenuItem>
+        <MenuItem value={availabilityTypes.ROLLING}>
+          Over a period of rolling days
+        </MenuItem>
+        <MenuItem value={availabilityTypes.RANGE}>Over a date range</MenuItem>
+        <MenuItem value={availabilityTypes.INDEF}>Indefinitely</MenuItem>
       </Select>
     </FormControl>
   );
 }
-export const ROLLING = 1;
-export const RANGE = 2;
-export const INDEF = 3;

@@ -25,6 +25,7 @@ import { ModalState } from "./ModalState";
 import { TabState } from "./TabState";
 import styled from "styled-components";
 import { lighten } from "polished";
+import { ModalProps } from "./types";
 
 let ACModalController = compose(
   ModalState,
@@ -62,42 +63,43 @@ const CalendarHeaderText = styled(Typography).attrs({
   font-size: 24px !important;
 `;
 
-const CalendarHeader = ({ children }) => (
+const CalendarHeader = (children: React.ReactNode) => (
   <CalendarHeaderContainer>
     <CalendarHeaderText>{children}</CalendarHeaderText>
   </CalendarHeaderContainer>
 );
 
-const AvailabilityCalendarModal = ACModalController(function ACModal({
-  open,
-  handleOpen,
-  handleClose,
-  dayStart,
-  dayEnd,
-  children
-}) {
+export function AvailabilityCalendarModal(
+  props: ModalProps & { dayStart: string; dayEnd: string }
+) {
   return (
     <React.Fragment>
-      <Dialog fullWidth open={open} onClose={handleClose}>
+      <Dialog fullWidth open={props.open} onClose={props.handleClose}>
         <div>
           <DialogTitle>Availability Calendar</DialogTitle>
           <DialogContent>
             <Container>
-              <Typography variant="subheading">{`${dayStart} - ${dayEnd}`}</Typography>
+              <Typography variant="subheading">{`${props.dayStart} - ${
+                props.dayEnd
+              }`}</Typography>
             </Container>
           </DialogContent>
         </div>
       </Dialog>
-      {children({ handleOpen })}
+      {props.children(props.handleOpen)}
     </React.Fragment>
   );
-});
+}
+
+export const ACModalWithController = ACModalController(
+  AvailabilityCalendarModal
+);
 
 export function AvailabilityCalendarComponent() {
   return (
     <React.Fragment>
       <Container justify="flex-end">
-        <CalendarHeader>September 28 - October 31, 2018 </CalendarHeader>
+        <CalendarHeader>September 28 - October 31, 2018</CalendarHeader>
         <CalendarMonthDirectionContainer>
           <Button color="primary" size="small">
             <ArrowLeftIcon />
@@ -112,15 +114,16 @@ export function AvailabilityCalendarComponent() {
       </Container>
       <CalendarControl>
         <AvailabilityCalendarModal>
-          {({ handleOpen: onSelectDays }) => (
-            <Calendar onSelectDays={onSelectDays} />
-          )}
+          {(handleOpen: () => void) => <Calendar onSelectDays={handleOpen} />}
         </AvailabilityCalendarModal>
       </CalendarControl>
     </React.Fragment>
   );
 }
-export function AvailabilityCalendar({ tabState, changeTab }) {
+export function AvailabilityCalendar(
+  tabState: Number,
+  changeTab: (N: Number) => void
+) {
   return (
     <React.Fragment>
       <FormLabel>Availability</FormLabel>

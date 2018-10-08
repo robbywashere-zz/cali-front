@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { SlotList } from "./Slots";
 import { Month, DayRow, DayRowLabel, Week } from "./Month";
 import { DAYS, DayWithCalendarContext } from "./AvailabilityCalendar";
-export function Calendar({ onSelectDays }) {
+export function Calendar(onSelectDays: () => void) {
   return (
     <Month>
       <DayRow>

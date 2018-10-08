@@ -8,11 +8,11 @@ import { fromRenderProps } from "recompose";
 );
 */
 
-export const CalendarContext = React.createContext();
+export const CalendarContext = React.createContext({});
 
 export const withCalendarContext = fromRenderProps(
   CalendarContext.Consumer,
-  p => p
+  (p: any) => p
 );
 
 export class CalendarControl extends React.Component {
@@ -22,10 +22,10 @@ export class CalendarControl extends React.Component {
     today: 5,
     dayEnd: 1
   };
-  selectDay = dayStart => {
+  selectDay = (dayStart: Number) => {
     this.setState({ dayStart, dayEnd: dayStart, isSelectingDay: true });
   };
-  unselectDay = cb => {
+  unselectDay = (cb: Function) => {
     this.setState(
       {
         isSelectingDay: false
@@ -33,14 +33,14 @@ export class CalendarControl extends React.Component {
       cb
     );
   };
-  hoverDay = dayEnd => {
+  hoverDay = (dayEnd: Number) => {
     const { dayStart } = this.state;
     this.setState({
       dayStart: dayStart > dayEnd ? dayEnd : dayStart,
       dayEnd: dayStart < dayEnd ? dayEnd : dayStart
     });
   };
-  dayInRange = day => {
+  dayInRange = (day: string) => {
     return (
       (this.state.dayStart <= parseInt(day) &&
         parseInt(day) <= this.state.dayEnd) ||
