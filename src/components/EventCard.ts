@@ -19,7 +19,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Item } from "elements/Gridding";
-import { SmartMenu } from "components/SmartMenu";
+import { SmartMenu } from "./SmartMenu";
 import { ListItemText } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 

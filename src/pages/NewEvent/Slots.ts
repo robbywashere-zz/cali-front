@@ -25,7 +25,7 @@ const SlotItem = styled(({ children, ...props }) => (
   padding-top: 2px !important;
   padding-bottom: 2px !important;
 `;
-const SlotMore = styled(({ ...props, text= "+6 More" }) => (
+const SlotMore = styled(({ text= "+6 More", ...props  }) => (
   <SlotItem {...props}>
       <Typography variant="caption">{ text }</Typography>
   </SlotItem>
