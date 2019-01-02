@@ -4,14 +4,14 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import { lighten } from "polished";
 
-const DayLabel = styled(({ text, isToday, ...props }) => (
+const DayLabel = styled((props: { text: string; isToday: boolean }) => (
   <Typography align="left" {...props}>
     <DayText isToday={isToday}>{text}</DayText>
   </Typography>
 ))`
   border-radius: 50%;
-  color: ${p =>
-    p.isToday ? p.theme.palette.secondary.main : "inherit"} !important;
+  color: ${(isToday: boolean, theme: object) =>
+    isToday ? theme.palette.secondary.main : "inherit"} !important;
   padding: ${p => p.theme.spacing.unit}px;
 `;
 
@@ -27,7 +27,7 @@ const DayText = styled.div`
 `;
 
 export const Day = styled(
-  ({
+  (
     onSelectDays,
     selectDay,
     hoverDay,
@@ -40,7 +40,7 @@ export const Day = styled(
     dayEnd,
     today,
     ...props
-  }) => (
+  ) => (
     <div
       onMouseEnter={() => (isSelectingDay ? hoverDay(value) : null)}
       onMouseDown={() => selectDay(value)}

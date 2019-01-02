@@ -5,7 +5,8 @@ import {
   Grid,
   FormLabel,
   Button,
-  Typography
+  Typography,
+  Omit
 } from "@material-ui/core";
 
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
@@ -13,9 +14,8 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
-import { Item, Row } from "../../elements/Gridding";
 import Tabs from "@material-ui/core/Tabs";
-import { Container } from "elements/Gridding";
+import { Container } from "../../elements/Gridding";
 import React from "react";
 import { compose, onlyUpdateForKeys } from "recompose";
 import { Calendar, CalendarContainer } from "./Calendar";
@@ -27,15 +27,18 @@ import styled from "styled-components";
 import { lighten } from "polished";
 import { ModalProps } from "./types";
 
-let ACModalController = compose(
-  ModalState,
-  withCalendarContext,
-  onlyUpdateForKeys(["open"])
-);
+let ACModalControllerFactory = <TOuter, TInner>() =>
+  compose<TOuter, TInner>(
+    ModalState,
+    withCalendarContext,
+    onlyUpdateForKeys(["open"])
+  );
 
-export const DayWithCalendarContext = withCalendarContext(Day);
+export const DayWithCalendarContext = withCalendarContext()(Day);
 
-export const DAYS = "1,2,3,4,5,6,7".split(",").map(i => parseInt(i));
+export const DAYS = [1, 2, 3, 4, 5, 6, 7];
+
+//{ children: (handleOpen: () => void) => Element; }
 
 const CalendarHeaderContainer = styled.div`
   width: 100%;
@@ -63,39 +66,47 @@ const CalendarHeaderText = styled(Typography).attrs({
   font-size: 24px !important;
 `;
 
-const CalendarHeader = (children: React.ReactNode) => (
+type CalendarHeaderProps = { children: React.ReactNode };
+const CalendarHeader: React.SFC<CalendarHeaderProps> = ({ children }) => (
   <CalendarHeaderContainer>
     <CalendarHeaderText>{children}</CalendarHeaderText>
   </CalendarHeaderContainer>
 );
 
-export function AvailabilityCalendarModal(
-  props: ModalProps & { dayStart: string; dayEnd: string }
-) {
-  return (
-    <React.Fragment>
-      <Dialog fullWidth open={props.open} onClose={props.handleClose}>
-        <div>
-          <DialogTitle>Availability Calendar</DialogTitle>
-          <DialogContent>
-            <Container>
-              <Typography variant="subheading">{`${props.dayStart} - ${
-                props.dayEnd
-              }`}</Typography>
-            </Container>
-          </DialogContent>
-        </div>
-      </Dialog>
-      {props.children(props.handleOpen)}
-    </React.Fragment>
-  );
+export interface AvailabilityCalendarModalProps extends ModalProps {
+  dayStart: string;
+  dayEnd: string;
 }
-
-export const ACModalWithController = ACModalController(
-  AvailabilityCalendarModal
+const AvailabilityCalendarModal = ({
+  children,
+  open,
+  handleOpen,
+  handleClose,
+  dayStart,
+  dayEnd
+}: AvailabilityCalendarModalProps) => (
+  <React.Fragment>
+    <Dialog fullWidth open={open} onClose={handleClose}>
+      <div>
+        <DialogTitle>Availability Calendar</DialogTitle>
+        <DialogContent>
+          <Container>
+            <Typography variant="subheading">{`${dayStart} - ${dayEnd}`}</Typography>
+          </Container>
+        </DialogContent>
+      </div>
+    </Dialog>
+    {children(handleOpen)}
+  </React.Fragment>
 );
 
-export function AvailabilityCalendarComponent() {
+const ACModalWithController = compose(
+  withCalendarContext,
+  ModalState,
+  onlyUpdateForKeys(["open"])
+)(AvailabilityCalendarModal);
+
+const AvailabilityCalendarComponent = () => {
   return (
     <React.Fragment>
       <Container justify="flex-end">
@@ -113,13 +124,14 @@ export function AvailabilityCalendarComponent() {
         </CalendarMonthDirectionContainer>
       </Container>
       <CalendarControl>
-        <AvailabilityCalendarModal>
-          {(handleOpen: () => void) => <Calendar onSelectDays={handleOpen} />}
-        </AvailabilityCalendarModal>
+        <ACModalWithController>
+          {handleOpen => <Calendar onSelectDays={handleOpen} />}
+        </ACModalWithController>
       </CalendarControl>
     </React.Fragment>
   );
-}
+};
+
 export function AvailabilityCalendar(
   tabState: Number,
   changeTab: (N: Number) => void

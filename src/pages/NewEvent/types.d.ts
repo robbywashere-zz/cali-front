@@ -1,9 +1,7 @@
 import React from "react";
-export interface ModalProps {
+export type ModalProps = {
   open: boolean;
-  handleOpen: (event: React.MouseEvent<HTMLElement>) => void;
-  handleClose: (event: React.MouseEvent<HTMLElement>) => void;
-  children: (
-    handleOpen: (event: React.MouseEvent<HTMLElement>) => void
-  ) => void;
-}
+  handleOpen: (event: any) => void;
+  handleClose: (event: any) => void;
+  children: (handleOpen: (event: any) => void) => void;
+};

@@ -1,10 +1,14 @@
-import { Container } from "elements/Gridding";
+import { Container } from "../../elements/Gridding";
 import React from "react";
 import styled from "styled-components";
 import { SlotList } from "./Slots";
 import { Month, DayRow, DayRowLabel, Week } from "./Month";
 import { DAYS, DayWithCalendarContext } from "./AvailabilityCalendar";
-export function Calendar(onSelectDays: () => void) {
+
+export type CalendarProps = {
+  onSelectDays: (e: any) => void;
+};
+export const Calendar: React.SFC<CalendarProps> = ({ onSelectDays }) => {
   return (
     <Month>
       <DayRow>
@@ -32,7 +36,7 @@ export function Calendar(onSelectDays: () => void) {
       ))}
     </Month>
   );
-}
+};
 export const CalendarContainer = styled(Container)`
   padding-top: ${({ theme }) => theme.spacing.unit * 3}px;
   padding-bottom: ${({ theme }) => theme.spacing.unit}px;

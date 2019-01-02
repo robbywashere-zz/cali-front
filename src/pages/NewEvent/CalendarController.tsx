@@ -1,18 +1,32 @@
 import React from "react";
 import { fromRenderProps } from "recompose";
 
-/*const withContext = Context => Component => props => (
-  <Context.Consumer>
-    {context => <Component {...context} {...props} />}
-  </Context.Consumer>
-);
-*/
-
 export const CalendarContext = React.createContext({});
+
+/*
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export function withAppContext<
+  P extends { appContext?: AppContextInterface },
+  R = Omit<P, 'appContext'>
+  >(
+  Component: React.ComponentClass<P> | React.StatelessComponent<P>
+  ): React.SFC<R> {
+  return function BoundComponent(props: R) {
+    return (
+      <AppContextConsumer>
+        {value => <Component {...props} appContext={value} />}
+      </AppContextConsumer>
+    );
+  };
+}
+*/
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export const withCalendarContext = fromRenderProps(
   CalendarContext.Consumer,
-  (p: any) => p
+  p => p
 );
 
 export class CalendarControl extends React.Component {
@@ -22,10 +36,11 @@ export class CalendarControl extends React.Component {
     today: 5,
     dayEnd: 1
   };
+
   selectDay = (dayStart: Number) => {
     this.setState({ dayStart, dayEnd: dayStart, isSelectingDay: true });
   };
-  unselectDay = (cb: Function) => {
+  unselectDay = (cb: () => void) => {
     this.setState(
       {
         isSelectingDay: false

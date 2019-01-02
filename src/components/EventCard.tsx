@@ -5,7 +5,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
 import Timer from "@material-ui/icons/Timer";
 import FileCopy from "@material-ui/icons/FileCopy";
 import Settings from "@material-ui/icons/Settings";
@@ -21,12 +20,12 @@ import styled from "styled-components";
 import { Item } from "elements/Gridding";
 import { SmartMenu } from "./SmartMenu";
 import { ListItemText } from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 
 const EventCard = styled(Card)`
   min-height: 80px;
 `;
-const VisibilityCheckbox = props => (
+const VisibilityCheckbox = (props: CheckboxProps) => (
   <Checkbox
     {...props}
     aria-label="Visibility"
@@ -40,7 +39,6 @@ const EventMenu = () => (
   <React.Fragment>
     <Switch />
     <VisibilityCheckbox />
-
     <SmartMenu actionIcon={Settings}>
       {({ handleClose }) => (
         <React.Fragment>
@@ -88,7 +86,7 @@ const EventBodyText = styled(Typography).attrs({
   color: "textSecondary",
   component: "p"
 })``;
-const EventBody = ({ children }) => (
+const EventBody: React.SFC<{}> = ({ children }) => (
   <CardContent>
     <EventBodyText>{children}</EventBodyText>
   </CardContent>

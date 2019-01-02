@@ -11,7 +11,14 @@ import React from "react";
 
 const mColors = Object.keys(muiColors).filter(color => color !== "common");
 
-export class ColorSelector extends PureComponent {
+export type ColorSelectorProps = {
+  handleChange: (event: React.ChangeEvent<{}>, value: string) => void;
+  selectedValue?: string;
+  label: string;
+  name: string;
+  colors: string[];
+};
+export class ColorSelector extends PureComponent<ColorSelectorProps> {
   render() {
     const {
       handleChange,
