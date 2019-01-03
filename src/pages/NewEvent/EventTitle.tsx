@@ -1,3 +1,4 @@
-import Typography from "@material-ui/core/Typography";
-import { withProps } from "recompose";
-export const EventTitle = withProps({ variant: "title" })(Typography);
+import Typography, { TypographyProps } from "@material-ui/core/Typography";
+export const EventTitle = (props: TypographyProps) => (
+  <Typography variant="title" {...props} />
+);

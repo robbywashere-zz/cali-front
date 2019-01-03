@@ -1,41 +1,37 @@
 import React from "react";
 import { fromRenderProps } from "recompose";
 
-export const CalendarContext = React.createContext({});
-
-/*
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export function withAppContext<
-  P extends { appContext?: AppContextInterface },
-  R = Omit<P, 'appContext'>
-  >(
-  Component: React.ComponentClass<P> | React.StatelessComponent<P>
-  ): React.SFC<R> {
-  return function BoundComponent(props: R) {
-    return (
-      <AppContextConsumer>
-        {value => <Component {...props} appContext={value} />}
-      </AppContextConsumer>
-    );
-  };
-}
-*/
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export const withCalendarContext = fromRenderProps(
-  CalendarContext.Consumer,
-  p => p
+export const CalendarContext = React.createContext<CalendarContextType>(
+  {} as CalendarContextType
 );
 
+export type CalendarContextType = {
+  selectDay: CalendarControl["selectDay"];
+  dayInRange: CalendarControl["dayInRange"];
+  unselectDay: CalendarControl["unselectDay"];
+  hoverDay: CalendarControl["hoverDay"];
+} & CalendarControlStateType;
+
+//type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export const withCalendarContext = function<T>() {
+  return fromRenderProps<CalendarContextType, T, CalendarContextType & T>(
+    CalendarContext.Consumer,
+    p => p
+  );
+};
+
+const initialState = {
+  isSelectingDay: false,
+  dayStart: 1,
+  today: 5,
+  dayEnd: 1
+};
+
+export type CalendarControlStateType = typeof initialState;
+
 export class CalendarControl extends React.Component {
-  state = {
-    isSelectingDay: false,
-    dayStart: 1,
-    today: 5,
-    dayEnd: 1
-  };
+  state = initialState;
 
   selectDay = (dayStart: Number) => {
     this.setState({ dayStart, dayEnd: dayStart, isSelectingDay: true });

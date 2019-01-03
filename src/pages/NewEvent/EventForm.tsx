@@ -1,30 +1,41 @@
-import Button from "@material-ui/core/Button";
 import React from "react";
 import { ColorSelector } from "../../form/ColorSelector";
 import { AdornText } from "../AdornText";
 import { FormField } from "../../form/FormField";
 import { adorn } from "../AdornText";
 import { FormActions } from "./FormActions";
+import { InjectedFormikProps, withFormik } from "formik";
 
 export const AdornFormField = adorn(FormField);
 
-export const NewEventForm = props => {
+export type NewEventFormProps = {
+  linkBase?: string;
+  name?: string;
+  link?: string;
+  eventColor?: string;
+};
+
+export type NewEventFormValues = {
+  linkBase: string;
+  name: string;
+  link: string;
+  eventColor: string;
+};
+
+export const NewEventForm: React.SFC<
+  InjectedFormikProps<NewEventFormProps, NewEventFormValues>
+> = props => {
   const {
     linkBase = "cali.com/robby/",
-    values = {},
-    children,
-    touched,
+    values,
     errors,
-    dirty,
-    isSubmitting,
-    handleBlur,
     handleSubmit,
     handleChange
   } = props;
   return (
     <form noValidate onSubmit={handleSubmit} autoComplete="off">
       <FormField
-        error={errors.name}
+        error={!!errors.name}
         required
         label="Event Name"
         name="name"
@@ -53,7 +64,22 @@ export const NewEventForm = props => {
         selectedValue={values.eventColor}
       />
       <pre>{JSON.stringify(values, null, 4)}</pre>
-      <FormActions dividerTop />
+      <FormActions dividerTop handleNext={() => {}} handleCancel={() => {}} />
     </form>
   );
 };
+export const withEventFormik = withFormik<
+  NewEventFormProps & {
+    handleChange?: (values: NewEventFormValues) => void;
+    validate?: (values: NewEventFormValues, props: NewEventFormProps) => void;
+  },
+  NewEventFormValues
+>({
+  validateOnChange: true,
+  validate: (values, props) => {
+    if (typeof props.handleChange === "function") props.handleChange(values);
+    if (typeof props.validate === "function")
+      return props.validate(values, props);
+  },
+  handleSubmit: () => {}
+});

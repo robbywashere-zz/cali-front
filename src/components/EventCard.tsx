@@ -17,7 +17,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import React from "react";
 import styled from "styled-components";
 
-import { Item } from "elements/Gridding";
+import { Item } from "../elements/Gridding";
 import { SmartMenu } from "./SmartMenu";
 import { ListItemText } from "@material-ui/core";
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";

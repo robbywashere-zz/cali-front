@@ -29,18 +29,25 @@ const FormInfoEditContainer = styled(Container).attrs({
   padding-bottom: ${({ theme }) => theme.spacing.unit * 2}px !important;
 `;
 
-export function FormInfoEdit({ label, info, children }) {
-  return (
-    <React.Fragment>
-      <FormInfoEditContainer>
-        <Row>
-          <FormLabel>{label}</FormLabel>
-        </Row>
-        <TextBox>
-          <FormInfoText>{info}</FormInfoText>
-        </TextBox>
-        <Item xs={6}>{children}</Item>
-      </FormInfoEditContainer>
-    </React.Fragment>
-  );
-}
+type FormInfoEditProps = {
+  label: JSX.Element;
+  info: JSX.Element;
+};
+
+export const FormInfoEdit: React.SFC<FormInfoEditProps> = ({
+  label,
+  info,
+  children
+}) => (
+  <React.Fragment>
+    <FormInfoEditContainer>
+      <Row>
+        <FormLabel>{label}</FormLabel>
+      </Row>
+      <TextBox>
+        <FormInfoText>{info}</FormInfoText>
+      </TextBox>
+      <Item xs={6}>{children}</Item>
+    </FormInfoEditContainer>
+  </React.Fragment>
+);

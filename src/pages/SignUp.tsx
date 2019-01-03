@@ -1,13 +1,21 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { Form, Layout, MainPaper } from "form/FormLayout";
-import { SubmitButton } from "form/Buttons";
+import { Form, Layout, MainPaper } from "../form/FormLayout";
+import { SubmitButton } from "../form/Buttons";
 import axios from "axios";
-import { Password, TextField } from "form/Fields";
-import { LockAvatar } from "form/Misc";
+import { Password, TextField } from "../form/Fields";
+import { LockAvatar } from "../form/Misc";
+import { RouterChildContext, RouterProps } from "react-router";
 
-class SignUp extends React.Component {
-  submit = async event => {
+type UpdateEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
+
+class SignUp extends React.Component<RouterProps> {
+  state = {
+    username: "",
+    password: "",
+    confirmPassword: ""
+  };
+  submit = async (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     const { username, password, confirmPassword } = this.state;
     try {
@@ -17,7 +25,7 @@ class SignUp extends React.Component {
       alert(`Login error ${e}`);
     }
   };
-  update = property => ({ target: { value } }) => {
+  update = (property: string) => ({ target: { value } }: UpdateEvent) => {
     this.setState({ [property]: value });
   };
   render() {

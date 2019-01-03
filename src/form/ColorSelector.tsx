@@ -8,15 +8,17 @@ import { PureComponent, Component } from "react";
 import * as muiColors from "@material-ui/core/colors";
 
 import React from "react";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { Color } from "csstype";
 
 const mColors = Object.keys(muiColors).filter(color => color !== "common");
 
 export type ColorSelectorProps = {
   handleChange: (event: React.ChangeEvent<{}>, value: string) => void;
-  selectedValue?: string;
-  label: string;
-  name: string;
-  colors: string[];
+  selectedValue: string;
+  label?: string;
+  name?: string;
+  colors?: Color[];
 };
 export class ColorSelector extends PureComponent<ColorSelectorProps> {
   render() {
@@ -47,7 +49,7 @@ export class ColorSelector extends PureComponent<ColorSelectorProps> {
   }
 }
 const ColorRadio = styled(Radio)`
-  color: ${({ value }) => muiColors[value]["400"]} !important;
+  color: ${({ value }) => (muiColors as any)[value]["400"]} !important;
 `;
 const ColorFieldset = styled(FormControl).attrs({
   component: "fieldset",
@@ -55,7 +57,8 @@ const ColorFieldset = styled(FormControl).attrs({
   fullWidth: true,
   margin: "normal"
 })`
-  background: ${({ theme }) => theme.palette.common.white};
-  border: 1px solid ${({ theme }) => theme.palette.text.disabled} !important;
+  background: ${({ theme }: { theme: Theme }) => theme.palette.common.white};
+  border: 1px solid
+    ${({ theme }: { theme: Theme }) => theme.palette.text.disabled} !important;
   border-radius: 5px;
 `;

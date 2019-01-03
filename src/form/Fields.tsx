@@ -2,8 +2,18 @@ import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import { InputProps } from "@material-ui/core/Input";
 
-export const Password = ({ update, name = "password", children }) => (
+export type PasswordProps = {
+  name?: string;
+  update: InputProps["onChange"];
+};
+
+export const Password: React.SFC<PasswordProps> = ({
+  update,
+  name = "password",
+  children
+}) => (
   <FormControl margin="normal" required fullWidth>
     <InputLabel htmlFor="password">{children}</InputLabel>
     <Input
@@ -16,7 +26,13 @@ export const Password = ({ update, name = "password", children }) => (
   </FormControl>
 );
 
-export const TextField = ({
+export type TextFieldProps = {
+  autoFocus?: boolean;
+  name?: string;
+  update: InputProps["onChange"];
+};
+
+export const TextField: React.SFC<TextFieldProps> = ({
   autoFocus = false,
   update,
   name = "text",

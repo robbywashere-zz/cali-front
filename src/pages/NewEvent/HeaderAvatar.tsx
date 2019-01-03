@@ -16,5 +16,5 @@ export const HeaderAvatar = styled(({ title, icon: Icon, color, ...props }) => (
 ))`
   margin-right: ${({ theme }) => theme.spacing.unit * 3}px;
   background-color: ${({ color }) =>
-    (muiColors[color] || {})["400"]} !important;
+    ((muiColors as any)[color] || {})["400"]} !important;
 `;

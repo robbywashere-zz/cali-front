@@ -1,7 +1,7 @@
-import LuxonUtils from "material-ui-pickers/utils/luxon-utils";
+import LuxonUtils from "@date-io/luxon";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
-import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import { DatePicker } from "material-ui-pickers";
 import { FormControl } from "@material-ui/core";
 import React from "react";

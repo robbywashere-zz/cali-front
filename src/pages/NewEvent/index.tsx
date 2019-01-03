@@ -1,39 +1,34 @@
 import Divider from "@material-ui/core/Divider";
-import Title from "elements/Title";
+import Title from "../../elements/Title";
 import React from "react";
-import { Container, Item, Page, Row } from "elements/Gridding";
+import { Container, Item, Page, Row } from "../../elements/Gridding";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import { hot } from "react-hot-loader";
-import { withFormik } from "formik";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { NewEventForm } from "./EventForm";
 import { NewEventHeader } from "./EventHeader";
 import debounceHandler from "@hocs/debounce-handler";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
-
-import { pure, toRenderProps, compose, withState } from "recompose";
+import { compose, withState } from "recompose";
 import { EventDurations } from "./EventDurations";
 import { FormActions } from "./FormActions";
 import { Button } from "@material-ui/core";
+import { withEventFormik, NewEventForm } from "./EventForm";
 
-export const NewEventFormik = compose(
-  withFormik({
-    validateOnChange: true,
-    validate: (values, props) => {
-      if (typeof props.handleChange === "function") props.handleChange(values);
-      if (typeof props.validate === "function")
-        return props.validate(values, props);
-    },
-    handleSubmit: () => {}
-  }),
-  debounceHandler("handleChange", 200)
-)(NewEventForm);
+//debounceHandler("handleChange", 200)
+export const NewEventFormik = withEventFormik(NewEventForm);
 
-const withWatchColorName = compose(
-  withState("eventColor", "eventColorChange", "blue"),
-  withState("eventName", "eventNameChange", "My Event")
+export const withEventColorState = withState(
+  "eventColor",
+  "eventColorChange",
+  "blue"
+);
+
+export const withEventNameState = withState(
+  "eventName",
+  "eventNameChange",
+  "My Event"
 );
 
 const InviteeQuestions = ({}) => (
@@ -43,7 +38,11 @@ const InviteeQuestions = ({}) => (
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
       <Item xs={7}>
-        <FormActions dividerBottom>
+        <FormActions
+          dividerBottom
+          handleCancel={() => {}}
+          handleNext={() => {}}
+        >
           <Button size="small">Cancel</Button>
           <Button size="small" type="submit" color="primary">
             Next
@@ -54,19 +53,30 @@ const InviteeQuestions = ({}) => (
   </ExpansionPanel>
 );
 
-const NewEventDetails = ({
-  eventColor,
-  eventName,
+type NewEventDetails = {
+  eventColor: string;
+  eventName: string;
+  eventColorChange: (color: string) => string;
+  eventNameChange: (name: string) => string;
+};
+
+const NewEventDetails: React.SFC<NewEventDetails> = ({
+  eventColor: ec,
+  eventName: en,
   eventColorChange,
   eventNameChange
 }) => (
   <ExpansionPanel defaultExpanded={false}>
     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <NewEventHeader color={eventColor} title={eventName} />
+      <NewEventHeader color={ec} title={en} />
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
       <Item xs={7}>
-        <FormActions dividerBottom>
+        <FormActions
+          dividerBottom
+          handleNext={() => {}}
+          handleCancel={() => {}}
+        >
           <Button size="small">Cancel</Button>
           <Button size="small" type="submit" color="primary">
             Next
@@ -83,7 +93,9 @@ const NewEventDetails = ({
   </ExpansionPanel>
 );
 
-const NewEventDetailsWithWatcher = withWatchColorName(NewEventDetails);
+const NewEventDetailsWithWatcher = withEventColorState(
+  withEventNameState(NewEventDetails)
+);
 
 export const NewEventPage = () => (
   <Page>

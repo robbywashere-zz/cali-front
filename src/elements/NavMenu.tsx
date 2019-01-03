@@ -3,25 +3,29 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-export class NavMenu extends React.Component {
+
+export type NavMenuProps = {
+  logout: (e: any) => void;
+};
+
+export class NavMenu extends React.Component<NavMenuProps> {
   state = {
     anchorEl: null
   };
-  logout = () => this.props.actions.logout();
-  handleMenu = event => {
+  logout = this.props.logout;
+  handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
   render() {
-    const { authed } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
       <div>
         <IconButton
-          aria-owns={open ? "menu-appbar" : null}
+          aria-owns={open ? "menu-appbar" : ""}
           aria-haspopup="true"
           onClick={this.handleMenu}
           color="inherit"

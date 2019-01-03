@@ -8,9 +8,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../withRoot';
+import withRoot from '../misc/withRoot';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   root: {
     textAlign: 'center',
     paddingTop: theme.spacing.unit * 20,

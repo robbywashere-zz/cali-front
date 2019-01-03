@@ -1,7 +1,6 @@
-import { ROLLING } from "./AvailabilitySelect";
 import { withStateHandlers } from "recompose";
 
-export const changeHandler = origState =>
+export const changeHandler = (origState: object) =>
   withStateHandlers(origState, {
     handleChange: state => ({ target }) => ({
       ...state,

@@ -1,6 +1,5 @@
 import React from "react";
-import { Container, Row } from "elements/Gridding";
-import Button from "@material-ui/core/Button";
+import { Container, Row } from "../../elements/Gridding";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -11,24 +10,30 @@ import { AvailabilitySelect, availabilityTypes } from "./AvailabilitySelect";
 import StartEndDatePicker from "./StartEndDatePicker";
 import { compose } from "recompose";
 import { RenderWhen } from "./RenderWhen";
-import { ModalState } from "./ModalState";
+import { ModalState, ModalProps } from "./ModalState";
 import { changeHandler } from "./HandleChange";
-import { ModalProps } from "./types";
 
-const unitedStates = compose(
+export const availabilityStates = compose<AvailabilityModalProps, ModalProps>(
   ModalState,
   changeHandler({ available: availabilityTypes.ROLLING })
 );
 
-export function AvailabilityModal(
-  props: ModalProps & {
-    available: availabilityTypes;
-    handleChange: (at: availabilityTypes) => void;
-  }
-) {
+type AvailabilityModalProps = {
+  available: availabilityTypes;
+  handleChange: (at: availabilityTypes) => void;
+} & ModalProps;
+
+export const AvailabilityModal = ({
+  open,
+  available,
+  handleChange,
+  children,
+  handleOpen,
+  handleClose
+}: AvailabilityModalProps) => {
   return (
     <React.Fragment>
-      <Dialog fullWidth open={props.open} onClose={props.handleClose}>
+      <Dialog fullWidth open={open} onClose={handleClose}>
         <div>
           <DialogTitle>Availability</DialogTitle>
           <DialogContent>
@@ -36,16 +41,14 @@ export function AvailabilityModal(
               <Row>
                 <form>
                   <AvailabilitySelect
-                    value={props.available}
-                    handleChange={props.handleChange}
+                    value={available}
+                    handleChange={handleChange}
                   />
-                  <RenderWhen
-                    when={props.available === availabilityTypes.ROLLING}
-                  >
+                  <RenderWhen when={available === availabilityTypes.ROLLING}>
                     <FormControl fullWidth margin="normal">
                       <AdornField
                         fullWidth
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         InputLabelProps={{ shrink: true }}
                         defaultValue={60}
                         margin="normal"
@@ -56,29 +59,25 @@ export function AvailabilityModal(
                       </AdornField>
                     </FormControl>
                   </RenderWhen>
-                  <RenderWhen
-                    when={props.available === availabilityTypes.RANGE}
-                  >
+                  <RenderWhen when={available === availabilityTypes.RANGE}>
                     <StartEndDatePicker />
                   </RenderWhen>
-                  <RenderWhen
-                    when={props.available === availabilityTypes.INDEF}
-                  >
+                  <RenderWhen when={available === availabilityTypes.INDEF}>
                     <Typography variant="body2" color="primary">
                       Your invitees will be offered availability indefinitely
                       into the future.
                     </Typography>
                   </RenderWhen>
-                  <FormActions />
+                  <FormActions handleNext={() => {}} handleCancel={() => {}} />
                 </form>
               </Row>
             </Container>
           </DialogContent>
         </div>
       </Dialog>
-      {children({ handleOpen })}
+      {children(handleOpen)}
     </React.Fragment>
   );
-}
+};
 
-export default unitedStates(AvailabilityModal);
+export default availabilityStates(AvailabilityModal);

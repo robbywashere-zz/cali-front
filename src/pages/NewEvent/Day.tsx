@@ -1,18 +1,26 @@
-import styled, { css } from "styled-components";
-
+import styled from "../../styled-components";
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { lighten } from "polished";
+import { withCalendarContext, CalendarContextType } from "./CalendarController";
 
-const DayLabel = styled((props: { text: string; isToday: boolean }) => (
-  <Typography align="left" {...props}>
-    <DayText isToday={isToday}>{text}</DayText>
-  </Typography>
-))`
+export type DayLabelProps = {
+  text: string;
+  isToday: boolean;
+  [x: string]: any;
+};
+
+export const DayLabel = styled<React.SFC<DayLabelProps>>(
+  ({ text, isToday, ...props }: DayLabelProps) => (
+    <Typography align="left" {...props}>
+      <DayText isToday={isToday}>{text}</DayText>
+    </Typography>
+  )
+)`
   border-radius: 50%;
-  color: ${(isToday: boolean, theme: object) =>
+  color: ${({ theme, isToday }) =>
     isToday ? theme.palette.secondary.main : "inherit"} !important;
-  padding: ${p => p.theme.spacing.unit}px;
+  padding: ${({ theme }) => theme.spacing.unit}px;
 `;
 
 //border: ${p =>
@@ -26,25 +34,30 @@ const DayText = styled.div`
   line-height: ${p => p.theme.typography.fontSize * 2}px;
 `;
 
-export const Day = styled(
-  (
-    onSelectDays,
+export type DayProps = {
+  onSelectDays: (e: any) => void;
+  label: string | number;
+  value: number;
+};
+export const Day = styled<React.SFC<DayProps & CalendarContextType>>(
+  ({
     selectDay,
     hoverDay,
     unselectDay,
     dayInRange,
     isSelectingDay,
+    onSelectDays,
     label,
     value,
     dayStart,
     dayEnd,
     today,
     ...props
-  ) => (
+  }) => (
     <div
       onMouseEnter={() => (isSelectingDay ? hoverDay(value) : null)}
       onMouseDown={() => selectDay(value)}
-      onMouseUp={() => unselectDay(onSelectDays)}
+      onMouseUp={() => unselectDay(() => {})}
       {...props}
     >
       <DayLabel isToday={value === today} text={label} />
@@ -52,9 +65,9 @@ export const Day = styled(
     </div>
   )
 ).attrs({
-  style: p => ({
-    background: p.dayInRange(p.value)
-      ? lighten(0.5, p.theme.palette.primary.main)
+  style: ({ dayInRange, theme, value }: any) => ({
+    background: dayInRange(value)
+      ? lighten(0.5, theme.palette.primary.main)
       : "inherit"
   })
 })`
@@ -93,7 +106,7 @@ export const Day = styled(
   }
 `;
 
-function arrow({ direction = "left", size = "12px", color }) {
+function arrow({ direction = "left", size = "12px", color }: any) {
   const dir = direction === "left" ? "right" : "left";
   const otherDir = direction === "left" ? "left" : "right";
   return `${otherDir}: 105%;
@@ -110,3 +123,4 @@ function arrow({ direction = "left", size = "12px", color }) {
       margin-top: -${size};
       border-${otherDir}-color: ${color}`;
 }
+export const DayWithCalendarContext = withCalendarContext<DayProps>()(Day);

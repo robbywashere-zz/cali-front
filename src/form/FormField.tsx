@@ -1,20 +1,15 @@
-import TextField from "@material-ui/core/TextField";
-import { withProps, pure } from "recompose";
+import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import React from "react";
-/*
-const FormField = withProps({
-  component: FormikMui.TextField,
-  fullWidth: true,
-  variant: "outlined",
-  margin: "normal",
-  background: "#FFF"
-})(FastField);
-*/
-export const FormField = pure(
-  withProps({
-    fullWidth: true,
-    variant: "outlined",
-    margin: "normal",
-    background: "#FFF"
-  })(TextField)
+export const FormField = ({
+  fullWidth = true,
+  variant = "outlined",
+  margin = "normal",
+  ...props
+}: TextFieldProps & { variant?: "outlined" }) => (
+  <TextField
+    fullWidth={fullWidth}
+    variant={variant}
+    margin={margin}
+    {...props}
+  />
 );

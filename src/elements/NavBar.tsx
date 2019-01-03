@@ -4,9 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import { NavLink } from "./NavLink";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, Dispatch, AnyAction } from "redux";
 import * as actions from "../redux/actions";
-import { NavMenu } from "./NavMenu";
+import { NavMenu, NavMenuProps } from "./NavMenu";
 import React from "react";
 
 const Root = styled.div`
@@ -20,23 +20,25 @@ const Title = styled(Typography).attrs({
   flex-grow: 1;
 `;
 
-const MenuAppBar = () => (
+const MenuAppBar: React.SFC<NavMenuProps> = ({ logout }) => (
   <Root>
     <AppBar position="static">
       <Toolbar>
         <Title>çalí</Title>
         <NavLink to="/event-types">Event Types</NavLink>
         <NavLink to="/dashboard">DashBoard</NavLink>
-        <NavMenu />
+        <NavMenu logout={logout} />
       </Toolbar>
     </AppBar>
   </Root>
 );
 
-function mapDispatch(dispatch) {
-  return { actions: bindActionCreators(actions, dispatch) };
+function mapDispatch(dispatch: Dispatch<AnyAction>) {
+  return bindActionCreators(actions, dispatch);
 }
-const mapState = state => ({ authed: state.login.authed });
+const mapState = (state: { login: { authed: boolean } }) => ({
+  authed: state.login.authed
+});
 export default connect(
   mapState,
   mapDispatch

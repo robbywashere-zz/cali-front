@@ -7,26 +7,32 @@ export enum availabilityTypes {
   RANGE,
   INDEF
 }
-export function AvailabilitySelect({ value: availabilityTypes, handleChange }) {
-  return (
-    <FormControl fullWidth margin="normal">
-      <InputLabel shrink htmlFor="available">
-        When can events be scheduled?
-      </InputLabel>
-      <Select
-        value={value}
-        onChange={handleChange}
-        inputProps={{
-          name: "available",
-          id: "available"
-        }}
-      >
-        <MenuItem value={availabilityTypes.ROLLING}>
-          Over a period of rolling days
-        </MenuItem>
-        <MenuItem value={availabilityTypes.RANGE}>Over a date range</MenuItem>
-        <MenuItem value={availabilityTypes.INDEF}>Indefinitely</MenuItem>
-      </Select>
-    </FormControl>
-  );
-}
+export type AvailabilitySelectProps = {
+  handleChange: (e: any) => void;
+  value: availabilityTypes;
+};
+
+export const AvailabilitySelect: React.SFC<AvailabilitySelectProps> = ({
+  value,
+  handleChange
+}) => (
+  <FormControl fullWidth margin="normal">
+    <InputLabel shrink htmlFor="available">
+      When can events be scheduled?
+    </InputLabel>
+    <Select
+      value={value}
+      onChange={handleChange}
+      inputProps={{
+        name: "available",
+        id: "available"
+      }}
+    >
+      <MenuItem value={availabilityTypes.ROLLING}>
+        Over a period of rolling days
+      </MenuItem>
+      <MenuItem value={availabilityTypes.RANGE}>Over a date range</MenuItem>
+      <MenuItem value={availabilityTypes.INDEF}>Indefinitely</MenuItem>
+    </Select>
+  </FormControl>
+);

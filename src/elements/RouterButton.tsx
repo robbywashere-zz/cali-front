@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Link, LinkProps } from "react-router-dom";
+import Button, { ButtonProps } from "@material-ui/core/Button";
 import React from "react";
-export default props => <Button component={Link} {...props} />;
+export const B: React.SFC<ButtonProps & LinkProps["to"]> = props => (
+  <Button component={Link} {...props} />
+);
+export default B;

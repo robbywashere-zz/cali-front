@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "checkJs": true,
+    "checkJs": false,
     "jsx": "preserve",
     "declaration": true,
     "outDir": "lib",
@@ -24,6 +24,7 @@
     "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "src/untyped.d.ts"
   ]
 }

@@ -3,7 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { SlotList } from "./Slots";
 import { Month, DayRow, DayRowLabel, Week } from "./Month";
-import { DAYS, DayWithCalendarContext } from "./AvailabilityCalendar";
+import { DAYS } from "./AvailabilityCalendar";
+import { DayWithCalendarContext } from "./Day";
 
 export type CalendarProps = {
   onSelectDays: (e: any) => void;

@@ -19,26 +19,17 @@ import { Container } from "../../elements/Gridding";
 import React from "react";
 import { compose, onlyUpdateForKeys } from "recompose";
 import { Calendar, CalendarContainer } from "./Calendar";
-import { CalendarControl, withCalendarContext } from "./CalendarController";
+import {
+  CalendarControl,
+  withCalendarContext,
+  CalendarControlStateType
+} from "./CalendarController";
 import { Day } from "./Day";
-import { ModalState } from "./ModalState";
+import { ModalState, ModalProps } from "./ModalState";
 import { TabState } from "./TabState";
 import styled from "styled-components";
-import { lighten } from "polished";
-import { ModalProps } from "./types";
-
-let ACModalControllerFactory = <TOuter, TInner>() =>
-  compose<TOuter, TInner>(
-    ModalState,
-    withCalendarContext,
-    onlyUpdateForKeys(["open"])
-  );
-
-export const DayWithCalendarContext = withCalendarContext()(Day);
 
 export const DAYS = [1, 2, 3, 4, 5, 6, 7];
-
-//{ children: (handleOpen: () => void) => Element; }
 
 const CalendarHeaderContainer = styled.div`
   width: 100%;
@@ -73,11 +64,10 @@ const CalendarHeader: React.SFC<CalendarHeaderProps> = ({ children }) => (
   </CalendarHeaderContainer>
 );
 
-export interface AvailabilityCalendarModalProps extends ModalProps {
-  dayStart: string;
-  dayEnd: string;
-}
-const AvailabilityCalendarModal = ({
+export type AvailabilityCalendarModalProps = ModalProps &
+  CalendarControlStateType;
+
+export const AvailabilityCalendarModal = ({
   children,
   open,
   handleOpen,
@@ -100,9 +90,12 @@ const AvailabilityCalendarModal = ({
   </React.Fragment>
 );
 
-const ACModalWithController = compose(
-  withCalendarContext,
+export const ACModalWithController = compose<
+  CalendarControlStateType & ModalProps,
+  Pick<ModalProps, "children">
+>(
   ModalState,
+  withCalendarContext,
   onlyUpdateForKeys(["open"])
 )(AvailabilityCalendarModal);
 
@@ -132,10 +125,15 @@ const AvailabilityCalendarComponent = () => {
   );
 };
 
-export function AvailabilityCalendar(
-  tabState: Number,
-  changeTab: (N: Number) => void
-) {
+export type AvailabilityCalendarProps = {
+  tabState: number;
+  changeTab: (n: number) => void;
+};
+
+export function AvailabilityCalendar({
+  tabState,
+  changeTab
+}: AvailabilityCalendarProps) {
   return (
     <React.Fragment>
       <FormLabel>Availability</FormLabel>

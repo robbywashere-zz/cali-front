@@ -12,7 +12,7 @@ export const DayRow = styled.div`
   grid-auto-flow: dense;
 `;
 
-export const DayRowLabel = ({ text }) => (
+export const DayRowLabel: React.SFC<{ text: string }> = ({ text }) => (
   <Typography align="center">{text}</Typography>
 );
 export const Week = styled.div`

@@ -8,13 +8,14 @@ import { createStore, combineReducers } from "redux";
 import { login } from "./redux/reducers";
 
 const persistedState = localStorage.getItem("ReduxStorage")
-  ? JSON.parse(localStorage.getItem("ReduxStorage"))
+  ? JSON.parse(localStorage.getItem("ReduxStorage")!)
   : {};
 
 const store = createStore(
   combineReducers({ login }),
   persistedState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 store.subscribe(() => {

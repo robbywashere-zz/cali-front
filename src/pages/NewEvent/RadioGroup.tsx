@@ -3,21 +3,43 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import { PureComponent } from "react";
+import { PureComponent, ReactInstance } from "react";
 
 import * as muiColors from "@material-ui/core/colors";
 
 import React from "react";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
+type SelectionsType = { value: string; label: string };
+
+type RadioGroupMapProps = {
+  selections: Array<SelectionsType>;
+  radioComponent: typeof Radio;
+};
 export const RadioGroupMap = ({
   selections,
   radioComponent: RadioComponent = Radio
-}) =>
+}: RadioGroupMapProps) =>
   selections.map(({ value, label }, i) => (
-    <RadioComponent key={i} value={value} label={label} />
+    <RadioComponent key={i} value={value}>
+      {label}
+    </RadioComponent>
   ));
 
-export class RadioGroupSelector extends PureComponent {
+type RadioGroupSelectorProps = {
+  handleChange: (e: any) => void;
+  selections?: Array<SelectionsType>;
+  selectedValue?: string;
+  label?: string;
+  name?: string;
+  children?: Array<JSX.Element>;
+  radioFieldSet?: typeof RadioFieldset2;
+  radioComponent?: typeof Radio;
+  required?: boolean;
+  outline?: boolean;
+};
+
+export class RadioGroupSelector extends PureComponent<RadioGroupSelectorProps> {
   render() {
     const {
       handleChange,
@@ -63,7 +85,8 @@ export const RadioFieldset2 = styled(({ outline, ...props }) => (
     !outline
       ? null
       : `
-  border: 1px solid ${({ theme }) => theme.palette.text.disabled} !important;
+  border: 1px solid ${({ theme }: { theme: Theme }) =>
+    theme.palette.text.disabled} !important;
   border-radius: 5px;
   `};
 `;

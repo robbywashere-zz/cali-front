@@ -1,40 +1,41 @@
 import React from "react";
-
 import Typography from "@material-ui/core/Typography";
-
 import { Form, Layout, MainPaper } from "../form/FormLayout";
-
 import { SubmitButton } from "../form/Buttons";
-
 import axios from "axios";
-
-import { Password, TextField } from "../form/Fields";
-
+import { Password, TextField, TextFieldProps } from "../form/Fields";
 import { LockAvatar } from "../form/Misc";
-
-import { Formik } from "formik";
-
 import { connect } from "react-redux";
-
-import { bindActionCreators } from "redux";
-
+import { bindActionCreators, Dispatch, AnyAction } from "redux";
 import * as actions from "../redux/actions";
+import { RouterProps } from "react-router";
+import { InputProps } from "@material-ui/core/Input";
 
-export class Login extends React.Component {
-  submit = async event => {
+export class Login extends React.Component<
+  {
+    login: (profile: object) => void;
+  } & RouterProps
+> {
+  state = {
+    username: "",
+    password: ""
+  };
+  submit = async (event: any) => {
     event.preventDefault();
     const { username, password } = this.state;
     try {
       if (!username || !password) return;
       const { data } = await axios.post("/auth", { username, password });
-      this.props.actions.login(data);
+      this.props.login(data);
       this.props.history.push("/");
     } catch (e) {
       console.log(e);
       alert(`Login error ${e.statusText || e}`);
     }
   };
-  update = property => ({ target: { value } }) => {
+  update = (property: "username" | "password") => ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     this.setState({ [property]: value });
   };
   alert() {}
@@ -61,11 +62,14 @@ export class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ login: state.login });
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(actions, dispatch) };
+//const mapStateToProps = state => ({ login: state.login });
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
+  return bindActionCreators<{}, { login: (data: object) => void }>(
+    actions,
+    dispatch
+  );
 }
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Login);
