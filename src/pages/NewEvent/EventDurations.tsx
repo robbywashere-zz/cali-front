@@ -1,4 +1,4 @@
-import { Container, Item, Row } from "elements/Gridding";
+import { Container, Row } from "../../elements/Gridding";
 import React from "react";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -7,19 +7,17 @@ import InsertInvitationIcon from "@material-ui/icons/InsertInvitation";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { NewEventHeader } from "./EventHeader";
-import { Typography, FormHelperText } from "@material-ui/core";
-import { withProps, withState, toRenderProps } from "recompose";
+import { withProps } from "recompose";
 import { EventDurationsSelect } from "./EventDurationsSelect";
-import FormControl from "@material-ui/core/FormControl";
-import Paper from "@material-ui/core/Paper";
 import { FormInfoEdit } from "./FormInfoEdit";
 import AvailabilityModal from "./AvailabilityModal";
 import AvailabilityCalendar from "./AvailabilityCalendar";
+import { Theme } from "@material-ui/core";
 
-function AvailabilityEditModal() {
+const AvailabilityEditModal: React.SFC<{}> = () => {
   return (
     <AvailabilityModal>
-      {({ handleOpen }) => (
+      {handleOpen => (
         <Button
           size="small"
           onClick={handleOpen}
@@ -31,12 +29,12 @@ function AvailabilityEditModal() {
       )}
     </AvailabilityModal>
   );
-}
+};
 
 function TimezoneEditModal() {
   return (
     <AvailabilityModal>
-      {({ handleOpen }) => (
+      {handleOpen => (
         <Button
           size="small"
           onClick={handleOpen}
@@ -88,7 +86,7 @@ export function EventDurations() {
   );
 }
 const EventTimeHeader = withProps({
-  color: ({ theme: t }) => t.palette.primary.light,
+  color: `${({ theme }: { theme: Theme }) => theme.palette.primary.light}`, ///???
   icon: InsertInvitationIcon,
   title: "Duration / Schedule"
 })(NewEventHeader);

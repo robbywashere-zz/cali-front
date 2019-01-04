@@ -1,17 +1,33 @@
 import { compose, toRenderProps, withState, withHandlers } from "recompose";
-export const RadioGroupState = toRenderProps(
+import React from "react";
+
+type Event = React.ChangeEvent<{}>;
+
+const withRadioGroupState = withState<
+  { defaultSelected?: {} },
+  {},
+  string,
+  string
+>(
+  "selectedValue",
+  "selectValue",
+  ({ defaultSelected } = {}) => defaultSelected
+);
+
+export const RadioGroupState = toRenderProps<
+  {
+    handleChange: (e: any, v: string | number | boolean) => void;
+    selectedValue: string;
+  },
+  {}
+>(
   compose(
-    withState(
-      "selectedValue",
-      "selectValue",
-      ({ defaultSelected } = {}) => defaultSelected
-    ),
-    withHandlers({
-      handleChange: ({ selectValue }) => {
-        return event => {
-          return selectValue(event.target.value);
-        };
-      }
+    withRadioGroupState,
+    withHandlers<{ selectValue: (v: string | number | boolean) => void }, {}>({
+      handleChange: ({ selectValue }) => (
+        e: any,
+        v: string | number | boolean
+      ) => selectValue(v)
     })
   )
 );

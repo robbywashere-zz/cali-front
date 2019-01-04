@@ -2,24 +2,18 @@ import { Radio, FormControlLabel } from "@material-ui/core";
 import React from "react";
 import { string } from "prop-types";
 import { FormControlLabelProps } from "@material-ui/core/FormControlLabel/FormControlLabel";
+import { RadioProps } from "@material-ui/core/Radio";
 
-type TimeSelectRadioProps = {
-  value: string;
-  label: string;
-} & FormControlLabelProps;
+export type TimeSelectRadioProps = {
+  value?: string;
+  label: React.ReactNode;
+  control?: React.ReactElement<any>;
+};
 
 export const TimeSelectRadio: React.SFC<TimeSelectRadioProps> = ({
-  value,
-  label,
   ...props
-}) => (
-  <FormControlLabel
-    value={value}
-    control={<Radio />}
-    label={label}
-    {...props}
-  />
-);
+}) => <FormControlLabel control={props.control || <Radio />} {...props} />;
+
 export const timeSelections = [
   { value: "15", label: "15min" },
   { value: "30", label: "30min" },

@@ -51,7 +51,7 @@ export const NewEventForm: React.SFC<
       />
       <AdornFormField
         required
-        error={errors.link}
+        error={!!errors.link}
         onChange={handleChange}
         label="Event Link"
         name="link"

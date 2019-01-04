@@ -1,6 +1,11 @@
 import { LOGIN, LOGOUT } from "./constants";
 
-export const login = (state = { authed: false, profile: {} }, action) => {
+type Actions = "LOGIN" | "LOGOUT";
+
+export const login = (
+  state = { authed: false, profile: {} },
+  action: { type: Actions; [x: string]: string }
+) => {
   switch (action.type) {
     case LOGIN:
       return { ...state, authed: true, profile: action.profile };

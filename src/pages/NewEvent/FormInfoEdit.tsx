@@ -30,8 +30,8 @@ const FormInfoEditContainer = styled(Container).attrs({
 `;
 
 type FormInfoEditProps = {
-  label: JSX.Element;
-  info: JSX.Element;
+  label: React.ReactNode;
+  info: React.ReactNode;
 };
 
 export const FormInfoEdit: React.SFC<FormInfoEditProps> = ({

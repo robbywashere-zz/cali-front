@@ -11,8 +11,8 @@ export type FormActionProps = {
   dividerBottom?: boolean;
 };
 export const FormActions: React.SFC<FormActionProps> = ({
-  dividerTop,
-  dividerBottom,
+  dividerTop = false,
+  dividerBottom = false,
   handleNext,
   handleCancel
 }) => (

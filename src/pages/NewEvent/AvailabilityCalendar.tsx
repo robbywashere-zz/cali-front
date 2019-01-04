@@ -2,11 +2,9 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  Grid,
   FormLabel,
   Button,
-  Typography,
-  Omit
+  Typography
 } from "@material-ui/core";
 
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
@@ -92,69 +90,65 @@ export const AvailabilityCalendarModal = ({
 
 export const ACModalWithController = compose<
   CalendarControlStateType & ModalProps,
-  Pick<ModalProps, "children">
+  { children: ModalProps["children"] }
 >(
   ModalState,
-  withCalendarContext,
+  withCalendarContext(),
   onlyUpdateForKeys(["open"])
 )(AvailabilityCalendarModal);
 
-const AvailabilityCalendarComponent = () => {
-  return (
-    <React.Fragment>
-      <Container justify="flex-end">
-        <CalendarHeader>September 28 - October 31, 2018</CalendarHeader>
-        <CalendarMonthDirectionContainer>
-          <Button color="primary" size="small">
-            <ArrowLeftIcon />
-          </Button>
-          <Button color="primary">
-            <ArrowRightIcon />
-          </Button>
-          <Button color="primary">
-            <CalendarTodayIcon />
-          </Button>
-        </CalendarMonthDirectionContainer>
-      </Container>
-      <CalendarControl>
-        <ACModalWithController>
-          {handleOpen => <Calendar onSelectDays={handleOpen} />}
-        </ACModalWithController>
-      </CalendarControl>
-    </React.Fragment>
-  );
-};
+const AvailabilityCalendarComponent: React.SFC<{}> = () => (
+  <React.Fragment>
+    <Container justify="flex-end">
+      <CalendarHeader>September 28 - October 31, 2018</CalendarHeader>
+      <CalendarMonthDirectionContainer>
+        <Button color="primary" size="small">
+          <ArrowLeftIcon />
+        </Button>
+        <Button color="primary">
+          <ArrowRightIcon />
+        </Button>
+        <Button color="primary">
+          <CalendarTodayIcon />
+        </Button>
+      </CalendarMonthDirectionContainer>
+    </Container>
+    <CalendarControl>
+      <ACModalWithController>
+        {handleOpen => <Calendar onSelectDays={handleOpen} />}
+      </ACModalWithController>
+    </CalendarControl>
+  </React.Fragment>
+);
 
 export type AvailabilityCalendarProps = {
   tabState: number;
-  changeTab: (n: number) => void;
+  changeTab: (n: number) => number;
 };
 
-export function AvailabilityCalendar({
+const AvailabilityCalendar: React.SFC<AvailabilityCalendarProps> = ({
   tabState,
   changeTab
-}: AvailabilityCalendarProps) {
-  return (
-    <React.Fragment>
-      <FormLabel>Availability</FormLabel>
-      <CalendarContainer>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={tabState}
-            onChange={(_, v) => changeTab(v)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab label="Hours" />
-            <Tab label="Advanced" />
-          </Tabs>
-        </AppBar>
-      </CalendarContainer>
-      <Container>
-        <AvailabilityCalendarComponent />
-      </Container>
-    </React.Fragment>
-  );
-}
+}) => (
+  <React.Fragment>
+    <FormLabel>Availability</FormLabel>
+    <CalendarContainer>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={tabState}
+          onChange={(_, v) => changeTab(v)}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab label="Hours" />
+          <Tab label="Advanced" />
+        </Tabs>
+      </AppBar>
+    </CalendarContainer>
+    <Container>
+      <AvailabilityCalendarComponent />
+    </Container>
+  </React.Fragment>
+);
 
 export default TabState(AvailabilityCalendar);

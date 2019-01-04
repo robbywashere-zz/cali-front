@@ -1,6 +1,6 @@
 import { RadioGroupSelector } from "./RadioGroup";
 import React from "react";
-import { RadioGroupState } from "form/RadioGroupState";
+import { RadioGroupState } from "../../form/RadioGroupState";
 import { timeSelections, TimeSelectRadio } from "./TimeSelectRadio";
 import { CustomTimeSelectRadio } from "./CustomTimeSelectRadio";
 export function EventDurationsSelect() {
@@ -14,7 +14,7 @@ export function EventDurationsSelect() {
           selections={timeSelections}
           radioComponent={TimeSelectRadio}
         >
-          <CustomTimeSelectRadio label="Custom" value={selectedValue} />
+          <CustomTimeSelectRadio onChange={() => {}} value={selectedValue} />
         </RadioGroupSelector>
       )}
     </RadioGroupState>

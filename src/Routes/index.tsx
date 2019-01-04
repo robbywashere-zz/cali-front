@@ -5,12 +5,22 @@ import EventTypes from "../pages/EventTypes";
 import Layout from "../Layout";
 import SignUp from "../pages/SignUp";
 import NewEvent from "../pages/NewEvent";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  RouteProps
+} from "react-router-dom";
 import { connect } from "react-redux";
 
-const Home = () => <div>Home</div>;
+const Home: React.SFC<{}> = () => <div>Home</div>;
 
-const PrivateRoute = ({ component: Component, authed, ...rest }) => (
+const PrivateRoute: React.SFC<
+  {
+    component: any; //RouteProps["component"]; !?
+    authed: boolean;
+  } & RouteProps
+> = ({ component: Component, authed, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -28,10 +38,10 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => (
   />
 );
 
-const Routes = ({ authed }) => (
+const Routes: React.SFC<{ authed: boolean }> = ({ authed }) => (
   <Router>
     <Layout>
-      <NavBar authed={authed} />
+      <NavBar />
       <PrivateRoute exact authed={authed} path="/" component={Home} />
       <PrivateRoute
         exact

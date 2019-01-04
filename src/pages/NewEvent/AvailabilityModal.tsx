@@ -13,9 +13,14 @@ import { RenderWhen } from "./RenderWhen";
 import { ModalState, ModalProps } from "./ModalState";
 import { changeHandler } from "./HandleChange";
 
-export const availabilityStates = compose<AvailabilityModalProps, ModalProps>(
-  ModalState,
-  changeHandler({ available: availabilityTypes.ROLLING })
+export const availabilityStates = compose<
+  AvailabilityModalProps,
+  {
+    children: ModalProps["handleOpen"];
+  }
+>(
+  changeHandler({ available: availabilityTypes.ROLLING }),
+  ModalState
 );
 
 type AvailabilityModalProps = {
@@ -23,14 +28,14 @@ type AvailabilityModalProps = {
   handleChange: (at: availabilityTypes) => void;
 } & ModalProps;
 
-export const AvailabilityModal = ({
+export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
   open,
   available,
   handleChange,
   children,
   handleOpen,
   handleClose
-}: AvailabilityModalProps) => {
+}) => {
   return (
     <React.Fragment>
       <Dialog fullWidth open={open} onClose={handleClose}>
@@ -42,13 +47,17 @@ export const AvailabilityModal = ({
                 <form>
                   <AvailabilitySelect
                     value={available}
-                    handleChange={handleChange}
+                    handleChange={({ target: { value } }) =>
+                      handleChange(parseInt(value))
+                    }
                   />
                   <RenderWhen when={available === availabilityTypes.ROLLING}>
                     <FormControl fullWidth margin="normal">
                       <AdornField
                         fullWidth
-                        onChange={handleChange}
+                        onChange={({ target: { value } }) =>
+                          handleChange(parseInt(value))
+                        }
                         InputLabelProps={{ shrink: true }}
                         defaultValue={60}
                         margin="normal"

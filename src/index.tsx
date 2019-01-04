@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Routes from "./Routes";
-import registerServiceWorker from "./misc/registerServiceWorker";
+//import registerServiceWorker from "./misc/registerServiceWorker";
 
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
@@ -29,4 +29,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-registerServiceWorker();
+//registerServiceWorker();

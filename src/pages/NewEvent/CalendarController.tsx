@@ -5,14 +5,11 @@ export const CalendarContext = React.createContext<CalendarContextType>(
   {} as CalendarContextType
 );
 
-export type CalendarContextType = {
-  selectDay: CalendarControl["selectDay"];
-  dayInRange: CalendarControl["dayInRange"];
-  unselectDay: CalendarControl["unselectDay"];
-  hoverDay: CalendarControl["hoverDay"];
-} & CalendarControlStateType;
-
-//type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type CalendarContextType = Pick<
+  CalendarControl,
+  "selectDay" | "dayInRange" | "unselectDay" | "hoverDay"
+> &
+  CalendarControlStateType;
 
 export const withCalendarContext = function<T>() {
   return fromRenderProps<CalendarContextType, T, CalendarContextType & T>(

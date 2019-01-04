@@ -8,7 +8,10 @@ export enum availabilityTypes {
   INDEF
 }
 export type AvailabilitySelectProps = {
-  handleChange: (e: any) => void;
+  handleChange: (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    child: React.ReactNode
+  ) => void;
   value: availabilityTypes;
 };
 

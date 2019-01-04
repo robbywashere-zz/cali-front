@@ -2,8 +2,12 @@ import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import withTheme from "@material-ui/core/styles/withTheme";
 import { ThemeProvider } from "styled-components";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
-class Layout extends React.Component {
+type LayoutProps = {
+  theme: Theme;
+};
+class Layout extends React.Component<LayoutProps> {
   render() {
     const { theme, children } = this.props;
     return (

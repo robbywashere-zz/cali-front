@@ -2,39 +2,34 @@ import styled from "styled-components";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import { PureComponent, ReactInstance } from "react";
-
-import * as muiColors from "@material-ui/core/colors";
-
+import { PureComponent } from "react";
 import React from "react";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { CompoundRadio } from "./CompoundRadio";
 
-type SelectionsType = { value: string; label: string };
+type SelectionsType = { value?: string; label: React.ReactNode };
 
 type RadioGroupMapProps = {
   selections: Array<SelectionsType>;
-  radioComponent: typeof Radio;
+  radioComponent: React.ComponentType<SelectionsType>;
 };
 export const RadioGroupMap = ({
   selections,
-  radioComponent: RadioComponent = Radio
+  radioComponent: RadioComponent = CompoundRadio
 }: RadioGroupMapProps) =>
   selections.map(({ value, label }, i) => (
-    <RadioComponent key={i} value={value}>
-      {label}
-    </RadioComponent>
+    <RadioComponent label={label} key={i} value={value} />
   ));
 
 type RadioGroupSelectorProps = {
-  handleChange: (e: any) => void;
+  handleChange: (e: React.ChangeEvent<{}>, v: string) => void;
   selections?: Array<SelectionsType>;
   selectedValue?: string;
   label?: string;
   name?: string;
-  children?: Array<JSX.Element>;
+  children?: Array<JSX.Element> | JSX.Element;
   radioFieldSet?: typeof RadioFieldset2;
-  radioComponent?: typeof Radio;
+  radioComponent?: typeof CompoundRadio;
   required?: boolean;
   outline?: boolean;
 };
@@ -49,7 +44,7 @@ export class RadioGroupSelector extends PureComponent<RadioGroupSelectorProps> {
       name = "radio-group",
       children = [],
       radioFieldSet: RadioFieldset = RadioFieldset2,
-      radioComponent = Radio,
+      radioComponent = CompoundRadio,
       required = true,
       outline = false
     } = this.props;

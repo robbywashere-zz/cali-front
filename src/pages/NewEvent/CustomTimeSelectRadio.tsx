@@ -1,19 +1,27 @@
 import React from "react";
 import { Radio, FormControlLabel } from "@material-ui/core";
 import { AdornField } from "../AdornText";
-export class CustomTimeSelectRadio extends React.Component<any> {
-  state = { value: "85" };
-  dispatchChange = () => {
-    this.props.onChange(
-      { target: { value: this.state.value || null } },
-      this.state.value
-    );
-  };
 
-  update = (cb: () => void) => (value: string) => this.setState({ value }, cb);
+export type CustomTimeSelectRadioProps = {
+  onChange: (e: any, value: string | number | boolean) => void;
+  value: string;
+};
+export class CustomTimeSelectRadio extends React.Component<
+  CustomTimeSelectRadioProps
+> {
+  state = { value: "85" };
+
+  update = (cb: CustomTimeSelectRadioProps["onChange"]) => (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) =>
+    this.setState({ value: event.target.value }, () =>
+      cb(null, event.target.value)
+    );
 
   render() {
-    const { value } = this.props;
+    const { value, onChange } = this.props;
     return (
       <FormControlLabel
         value={value}
@@ -21,11 +29,11 @@ export class CustomTimeSelectRadio extends React.Component<any> {
         label={
           <AdornField
             defaultValue={this.state.value}
-            children={"Custom min"}
-            onChange={this.update(this.dispatchChange)}
+            children={"custom"}
+            onChange={this.update(onChange)}
           />
         }
-        onChange={this.dispatchChange}
+        onChange={onChange}
       />
     );
   }

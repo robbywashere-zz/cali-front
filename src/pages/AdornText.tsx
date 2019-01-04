@@ -1,7 +1,9 @@
 import Typography from "@material-ui/core/Typography";
-import TextField, { TextFieldProps, StandardTextFieldProps } from "@material-ui/core/TextField";
-import InputAdornment, { InputAdornmentProps } from "@material-ui/core/InputAdornment";
-import { withProps } from "recompose";
+import TextField, { TextFieldProps } from "@material-ui/core/TextField";
+import InputAdornment, {
+  InputAdornmentProps
+} from "@material-ui/core/InputAdornment";
+import { mapProps } from "recompose";
 import React from "react";
 import { InputProps } from "@material-ui/core/Input";
 
@@ -11,14 +13,15 @@ export const AdornText: React.SFC<{}> = ({ children }) => (
   </Typography>
 );
 
-export const adorn = withProps<
-  { InputProps: InputProps },
+export const adorn = mapProps<
+  //{ InputProps: InputProps } &
+  TextFieldProps,
   {
-    children: JSX.Element;
-    position?: InputAdornmentProps["position"],
-    inputProps: InputProps;
-  }
->(({ children, position = "start" as "start" | "end", inputProps }) => ({
+    position?: InputAdornmentProps["position"];
+    children?: React.ReactNode;
+    inputProps?: InputProps;
+  } & TextFieldProps
+>(({ children, position = "start" as "start" | "end", inputProps = {} }) => ({
   InputProps: {
     [`${position}Adornment`]: (
       <InputAdornment position={position}>{children}</InputAdornment>
@@ -27,4 +30,4 @@ export const adorn = withProps<
   }
 }));
 
-export const AdornField = adorn(TextField as any);
+export const AdornField = adorn(TextField);

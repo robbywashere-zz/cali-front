@@ -1,13 +1,13 @@
 import { toRenderProps, withStateHandlers } from "recompose";
 export const FormState = toRenderProps(
   withStateHandlers(
-    ({ initialState = {} }) => ({
+    ({ initialState = { formValues: {} } }) => ({
       formValues: initialState,
       errors: {}
     }),
     {
       updateFormValue: state => ({ target: { value, name } }) => ({
-        formValues: { ...state.formValues, [name]: value }
+        formValues: { ...(state as any).formValues, [name]: value }
       })
     }
   )
