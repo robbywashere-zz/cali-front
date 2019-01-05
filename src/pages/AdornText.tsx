@@ -14,19 +14,19 @@ export const AdornText: React.SFC<{}> = ({ children }) => (
 );
 
 export const adorn = mapProps<
-  //{ InputProps: InputProps } &
   TextFieldProps,
   {
     position?: InputAdornmentProps["position"];
     children?: React.ReactNode;
     inputProps?: InputProps;
   } & TextFieldProps
->(({ children, position = "start" as "start" | "end", inputProps = {} }) => ({
+>(({ children, position = "start" as "start" | "end", ...rest }) => ({
+  ...rest,
   InputProps: {
     [`${position}Adornment`]: (
       <InputAdornment position={position}>{children}</InputAdornment>
     ),
-    ...inputProps
+    ...rest.inputProps
   }
 }));
 

@@ -16,7 +16,6 @@ import { FormActions } from "./FormActions";
 import { Button } from "@material-ui/core";
 import { withEventFormik, NewEventForm } from "./EventForm";
 
-//debounceHandler("handleChange", 200)
 export const NewEventFormik = withEventFormik(NewEventForm);
 
 export const withEventColorState = withState(
@@ -30,6 +29,8 @@ export const withEventNameState = withState(
   "eventNameChange",
   "My Event"
 );
+
+const debounceEventName = debounceHandler("eventNameChange", 200);
 
 const InviteeQuestions = ({}) => (
   <ExpansionPanel defaultExpanded={false}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { fromRenderProps } from "recompose";
+import { fromRenderProps, Omit } from "recompose";
 
 export const CalendarContext = React.createContext<CalendarContextType>(
   {} as CalendarContextType
@@ -22,17 +22,23 @@ const initialState = {
   isSelectingDay: false,
   dayStart: 1,
   today: 5,
+  anchorDay: 0,
   dayEnd: 1
 };
 
-export type CalendarControlStateType = typeof initialState;
-
-export class CalendarControl extends React.Component {
+export type CalendarControlStateType = Omit<typeof initialState, "anchorDay">;
+export class CalendarControl extends React.Component<{}, typeof initialState> {
   state = initialState;
 
-  selectDay = (dayStart: Number) => {
-    this.setState({ dayStart, dayEnd: dayStart, isSelectingDay: true });
+  selectDay = (anchorDay: number) => {
+    this.setState({
+      anchorDay,
+      dayStart: anchorDay,
+      dayEnd: anchorDay,
+      isSelectingDay: true
+    });
   };
+
   unselectDay = (cb: () => void) => {
     this.setState(
       {
@@ -41,13 +47,14 @@ export class CalendarControl extends React.Component {
       cb
     );
   };
-  hoverDay = (dayEnd: Number) => {
-    const { dayStart } = this.state;
+  hoverDay = (day: number) => {
+    const { anchorDay } = this.state;
     this.setState({
-      dayStart: dayStart > dayEnd ? dayEnd : dayStart,
-      dayEnd: dayStart < dayEnd ? dayEnd : dayStart
+      dayStart: Math.min(anchorDay, day),
+      dayEnd: Math.max(anchorDay, day)
     });
   };
+
   dayInRange = (day: string) => {
     return (
       (this.state.dayStart <= parseInt(day) &&

@@ -9,7 +9,7 @@ export const HeaderAvatar = styled(({ title, icon: Icon, color, ...props }) => (
     ) : (
       title
         .trim()
-        .substr(0, 1)
+        .substr(0, 3)
         .toUpperCase()
     )}
   </Avatar>

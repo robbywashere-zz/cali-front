@@ -25,7 +25,7 @@ export const availabilityStates = compose<
 
 type AvailabilityModalProps = {
   available: availabilityTypes;
-  handleChange: (at: availabilityTypes) => void;
+  handleChange: (event: React.ChangeEvent<{}>) => void;
 } & ModalProps;
 
 export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
@@ -47,17 +47,13 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
                 <form>
                   <AvailabilitySelect
                     value={available}
-                    handleChange={({ target: { value } }) =>
-                      handleChange(parseInt(value))
-                    }
+                    handleChange={handleChange}
                   />
                   <RenderWhen when={available === availabilityTypes.ROLLING}>
                     <FormControl fullWidth margin="normal">
                       <AdornField
                         fullWidth
-                        onChange={({ target: { value } }) =>
-                          handleChange(parseInt(value))
-                        }
+                        onChange={handleChange}
                         InputLabelProps={{ shrink: true }}
                         defaultValue={60}
                         margin="normal"

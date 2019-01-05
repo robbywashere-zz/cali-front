@@ -23,9 +23,7 @@ export const DayLabel = styled<React.SFC<DayLabelProps>>(
   padding: ${({ theme }) => theme.spacing.unit}px;
 `;
 
-//border: ${p =>
-//    !p.isToday ? "none" : `1px solid ${p.theme.palette.secondary.main}`};
-const DayText = styled.div`
+const DayText = styled.span`
   border-radius: 50%;
   width: ${p => p.theme.typography.fontSize * 2}px;
   height: ${p => p.theme.typography.fontSize * 2}px;

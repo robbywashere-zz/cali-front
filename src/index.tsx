@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Routes from "./Routes";
 //import registerServiceWorker from "./misc/registerServiceWorker";
 
+import withRoot from "./misc/withRoot";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import { login } from "./redux/reducers";
@@ -22,10 +23,12 @@ store.subscribe(() => {
   localStorage.setItem("ReduxStorage", JSON.stringify(store.getState()));
 });
 
+const ProviderWithRoot = withRoot(Provider);
+
 ReactDOM.render(
-  <Provider store={store}>
+  <ProviderWithRoot store={store}>
     <Routes />
-  </Provider>,
+  </ProviderWithRoot>,
   document.getElementById("root")
 );
 
