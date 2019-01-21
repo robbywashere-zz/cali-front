@@ -1,4 +1,4 @@
-import { Container, Item } from "../../elements/Gridding";
+import { Container, Item } from "../../../elements/Gridding";
 import { EventTitle } from "./EventTitle";
 import { HeaderAvatar } from "./HeaderAvatar";
 import React from "react";

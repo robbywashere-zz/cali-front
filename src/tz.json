@@ -1,0 +1,284 @@
+{
+  "US/Canada": [
+    [
+      "Hawaii Time", "07:22pm"
+    ],
+    [
+      "Alaska Time", "08:22pm"
+    ],
+    [
+      "Pacific Time - US & Canada", "09:22pm"
+    ],
+    [
+      "Mountain Time - US & Canada", "10:22pm"
+    ],
+    [
+      "Arizona Time", "10:22pm"
+    ],
+    [
+      "Central Time - US & Canada", "11:22pm"
+    ],
+    [
+      "Eastern Time - US & Canada", "12:22am"
+    ],
+    [
+      "Atlantic Time", "01:22am"
+    ],
+    [
+      "Newfoundland Time", "01:52am"
+    ]
+  ],
+  "America": [
+    [
+      "America/Adak", "07:22pm"
+    ],
+    [
+      "America/Santa Isabel", "09:22pm"
+    ],
+    [
+      "America/Mazatlan", "10:22pm"
+    ],
+    [
+      "Saskatchewan, Guatemala, Costa Rica Time", "11:22pm"
+    ],
+    [
+      "Mexico City Time", "11:22pm"
+    ],
+    [
+      "Bogota, Jamaica, Lima Time", "12:22am"
+    ],
+    [
+      "America/Havana", "12:22am"
+    ],
+    [
+      "Caracas Time", "01:22am"
+    ],
+    [
+      "Atlantic Time", "01:22am"
+    ],
+    [
+      "Atlantic Standard Time", "01:22am"
+    ],
+    [
+      "Buenos Aires Time", "02:22am"
+    ],
+    [
+      "Asuncion Time", "02:22am"
+    ],
+    [
+      "America/Campo Grande", "02:22am"
+    ],
+    [
+      "America/Godthab", "02:22am"
+    ],
+    [
+      "Montevideo Time", "02:22am"
+    ],
+    [
+      "America/Miquelon", "02:22am"
+    ],
+    [
+      "Santiago Time", "02:22am"
+    ],
+    [
+      "America/Noronha", "03:22am"
+    ],
+    [
+      "Brasilia Time", "03:22am"
+    ]
+  ],
+  "Africa": [
+    [
+      "West Africa Time", "06:22am"
+    ],
+    [
+      "Africa/Cairo", "07:22am"
+    ],
+    [
+      "Central Africa Time", "07:22am"
+    ],
+    [
+      "Africa/Windhoek", "07:22am"
+    ]
+  ],
+  "Asia": [
+    [
+      "Syria, Jordan Time", "07:22am"
+    ],
+    [
+      "Jordan, Lebanon Time", "07:22am"
+    ],
+    [
+      "Asia/Damascus", "07:22am"
+    ],
+    [
+      "Asia/Gaza", "07:22am"
+    ],
+    [
+      "Israel Time", "07:22am"
+    ],
+    [
+      "Baghdad, East Africa Time", "08:22am"
+    ],
+    [
+      "Tehran Time", "08:52am"
+    ],
+    [
+      "Asia/Baku", "09:22am"
+    ],
+    [
+      "Dubai Time", "09:22am"
+    ],
+    [
+      "Asia/Yerevan", "09:22am"
+    ],
+    [
+      "Kabul Time", "09:52am"
+    ],
+    [
+      "Pakistan, Maldives Time", "10:22am"
+    ],
+    [
+      "Asia/Dhaka", "10:22am"
+    ],
+    [
+      "India, Sri Lanka Time", "10:52am"
+    ],
+    [
+      "Kathmandu Time", "11:07am"
+    ],
+    [
+      "Asia/Dhaka", "11:22am"
+    ],
+    [
+      "Asia/Omsk", "11:22am"
+    ],
+    [
+      "Asia/Rangoon", "11:52am"
+    ],
+    [
+      "Indochina Time", "12:22pm"
+    ],
+    [
+      "Krasnoyarsk Time", "12:22pm"
+    ],
+    [
+      "Asia/Irkutsk", "01:22pm"
+    ],
+    [
+      "China, Singapore, Perth", "01:22pm"
+    ],
+    [
+      "Japan, Korea Time", "02:22pm"
+    ],
+    [
+      "Asia/Yakutsk", "02:22pm"
+    ],
+    [
+      "Asia/Vladivostok", "03:22pm"
+    ],
+    [
+      "Pacific/Majuro", "05:22pm"
+    ]
+  ],
+  "Atlantic": [
+    [
+      "Azores Time", "04:22am"
+    ],
+    [
+      "Cape Verde Time", "04:22am"
+    ]
+  ],
+  "Australia": [
+    [
+      "Australia/Perth", "01:22pm"
+    ],
+    [
+      "Australia/Eucla", "02:07pm"
+    ],
+    [
+      "Australia/Darwin", "02:52pm"
+    ],
+    [
+      "Brisbane Time", "03:22pm"
+    ],
+    [
+      "Adelaide Time", "03:52pm"
+    ],
+    [
+      "Australia/Lord Howe", "04:22pm"
+    ],
+    [
+      "Sydney, Melbourne Time", "04:22pm"
+    ]
+  ],
+  "UTC": [
+    [
+      "UTC Time", "05:22am"
+    ]
+  ],
+  "Europe": [
+    [
+      "UK, Ireland, Lisbon Time", "05:22am"
+    ],
+    [
+      "Central European Time", "06:22am"
+    ],
+    [
+      "Eastern European Time", "07:22am"
+    ],
+    [
+      "Minsk Time", "08:22am"
+    ],
+    [
+      "Moscow Time", "08:22am"
+    ]
+  ],
+  "Pacific": [
+    [
+      "Pacific/Pago Pago", "06:22pm"
+    ],
+    [
+      "Pacific/Marquesas", "07:52pm"
+    ],
+    [
+      "Pacific/Gambier", "08:22pm"
+    ],
+    [
+      "Pacific/Pitcairn", "09:22pm"
+    ],
+    [
+      "Pacific/Easter", "12:22am"
+    ],
+    [
+      "Pacific/Norfolk", "04:22pm"
+    ],
+    [
+      "Pacific/Noumea", "04:22pm"
+    ],
+    [
+      "Pacific/Fiji", "05:22pm"
+    ],
+    [
+      "Pacific/Majuro", "05:22pm"
+    ],
+    [
+      "Pacific/Tarawa", "05:22pm"
+    ],
+    [
+      "Auckland Time", "06:22pm"
+    ],
+    [
+      "Pacific/Tongatapu", "06:22pm"
+    ],
+    [
+      "Pacific/Chatham", "07:07pm"
+    ],
+    [
+      "Pacific/Apia", "07:22pm"
+    ],
+    [
+      "Pacific/Kiritimati", "07:22pm"
+    ]
+  ]
+}

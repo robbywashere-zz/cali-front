@@ -17,15 +17,20 @@ const Title = styled(Typography).attrs({
   variant: "title",
   color: "inherit"
 })`
-  flex-grow: 1;
+  && {
+    font-size: 2em;
+    flex-grow: 1;
+    font-weight: 100;
+    text-transform: uppercase;
+  }
 `;
 
 const MenuAppBar: React.SFC<NavMenuProps> = ({ logout }) => (
   <Root>
     <AppBar position="static">
       <Toolbar>
-        <Title>çalí</Title>
-        <NavLink to="/event-types">Event Types</NavLink>
+        <Title>cali</Title>
+        <NavLink to="/event/types">Event Types</NavLink>
         <NavLink to="/dashboard">DashBoard</NavLink>
         <NavMenu logout={logout} />
       </Toolbar>

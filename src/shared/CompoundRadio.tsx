@@ -1,5 +1,6 @@
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import React from "react";
 
 export type CompoundRadioProps = {
   value?: string;

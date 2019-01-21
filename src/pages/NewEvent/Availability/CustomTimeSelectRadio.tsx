@@ -1,6 +1,6 @@
 import React from "react";
 import { Radio, FormControlLabel } from "@material-ui/core";
-import { AdornField } from "../AdornText";
+import { AdornField } from "../../../shared/AdornText";
 
 type OnChangeCB = (event: { target: { value: string } }, value: string) => void;
 

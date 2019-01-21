@@ -7,14 +7,14 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import { hot } from "react-hot-loader";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { NewEventHeader } from "./EventHeader";
+import { NewEventHeader } from "./Details/EventHeader";
 import debounceHandler from "@hocs/debounce-handler";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import { compose, withState } from "recompose";
-import { EventDurations } from "./EventDurations";
-import { FormActions } from "./FormActions";
+import { EventDurations } from "./Details/EventDurations";
+import { FormActions } from "../../shared/FormActions";
 import { Button } from "@material-ui/core";
-import { withEventFormik, NewEventForm } from "./EventForm";
+import { withEventFormik, NewEventForm } from "./Details/EventForm";
 
 export const NewEventFormik = withEventFormik(NewEventForm);
 

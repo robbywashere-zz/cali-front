@@ -51,7 +51,6 @@ export class RadioGroupSelector extends PureComponent<RadioGroupSelectorProps> {
 
     return (
       <RadioFieldset outline={outline}>
-        <div>{selectedValue}</div>
         <FormLabel required={required} component="legend">
           {label}
         </FormLabel>

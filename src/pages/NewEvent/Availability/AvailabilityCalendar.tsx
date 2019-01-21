@@ -13,7 +13,7 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import { Container } from "../../elements/Gridding";
+import { Container } from "../../../elements/Gridding";
 import React from "react";
 import { compose, onlyUpdateForKeys } from "recompose";
 import { Calendar, CalendarContainer } from "./Calendar";
@@ -23,8 +23,8 @@ import {
   CalendarControlStateType
 } from "./CalendarController";
 import { Day } from "./Day";
-import { ModalState, ModalProps } from "./ModalState";
-import { TabState } from "./TabState";
+import { ModalState, ModalProps } from "../../../shared/ModalState";
+import { TabState } from "../../../shared/TabState";
 import styled from "styled-components";
 
 export const DAYS = [1, 2, 3, 4, 5, 6, 7];

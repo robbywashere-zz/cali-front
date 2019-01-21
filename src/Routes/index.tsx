@@ -46,12 +46,12 @@ const Routes: React.SFC<{ authed: boolean }> = ({ authed }) => (
       <PrivateRoute
         exact
         authed={authed}
-        path="/new-event"
+        path="/event/new"
         component={NewEvent}
       />
       <PrivateRoute
         authed={authed}
-        path="/event-types"
+        path="/event/types"
         component={EventTypes}
       />
       <Route path="/login" component={Login} />

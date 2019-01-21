@@ -1,7 +1,7 @@
 import React from "react";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
-import { Container, Item } from "../../elements/Gridding";
+import { Container, Item } from "../elements/Gridding";
 import { RenderWhen } from "./RenderWhen";
 
 export type FormActionProps = {

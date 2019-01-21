@@ -1,4 +1,4 @@
-import { Container, Row } from "../../elements/Gridding";
+import { Container, Row } from "../../../elements/Gridding";
 import React from "react";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -9,10 +9,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { NewEventHeader } from "./EventHeader";
 import { withProps } from "recompose";
 import { EventDurationsSelect } from "./EventDurationsSelect";
-import { FormInfoEdit } from "./FormInfoEdit";
-import AvailabilityModal from "./AvailabilityModal";
-import AvailabilityCalendar from "./AvailabilityCalendar";
+import { FormInfoEdit } from "../../../shared/FormInfoEdit";
+import AvailabilityModal from "../Availability/AvailabilityModal";
+import AvailabilityCalendar from "../Availability/AvailabilityCalendar";
 import { Theme } from "@material-ui/core";
+import TimeZoneModal from "./TimeZoneModal";
 
 const AvailabilityEditModal: React.SFC<{}> = () => {
   return (
@@ -33,7 +34,7 @@ const AvailabilityEditModal: React.SFC<{}> = () => {
 
 function TimezoneEditModal() {
   return (
-    <AvailabilityModal>
+    <TimeZoneModal>
       {handleOpen => (
         <Button
           size="small"
@@ -44,7 +45,7 @@ function TimezoneEditModal() {
           edit
         </Button>
       )}
-    </AvailabilityModal>
+    </TimeZoneModal>
   );
 }
 

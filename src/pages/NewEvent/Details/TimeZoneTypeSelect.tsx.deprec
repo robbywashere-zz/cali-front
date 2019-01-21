@@ -1,0 +1,28 @@
+import { RadioGroupSelector } from "../../../shared/RadioGroup";
+import React from "react";
+import { RadioGroupState } from "../../../form/RadioGroupState";
+
+export type timezoneType = "locked" | "local";
+
+export const tzSelections: Array<{ value: timezoneType; label: string }> = [
+  { value: "local", label: "Local" },
+  { value: "locked", label: "Locked" }
+];
+
+class TimeZoneTypeSelect2 extends React.Component {}
+
+export const TimeZoneTypeSelect: React.SFC<{
+  defaultSelected?: timezoneType;
+  onChange: (e: any, v: string) => void;
+}> = ({ defaultSelected }) => (
+  <RadioGroupState defaultSelected={defaultSelected}>
+    {({ handleChange, selectedValue }) => (
+      <RadioGroupSelector
+        label="Type"
+        handleChange={(event, value) => handleChange(event, value)}
+        selectedValue={selectedValue}
+        selections={tzSelections}
+      />
+    )}
+  </RadioGroupState>
+);

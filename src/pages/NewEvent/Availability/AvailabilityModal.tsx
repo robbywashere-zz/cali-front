@@ -1,17 +1,18 @@
 import React from "react";
-import { Container, Row } from "../../elements/Gridding";
+import { Container, Row } from "../../../elements/Gridding";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { FormControl, Typography } from "@material-ui/core";
-import { AdornField } from "../AdornText";
-import { FormActions } from "./FormActions";
+import { AdornField } from "../../../shared/AdornText";
+import { FormActions } from "../../../shared/FormActions";
 import { AvailabilitySelect, availabilityTypes } from "./AvailabilitySelect";
 import StartEndDatePicker from "./StartEndDatePicker";
 import { compose } from "recompose";
-import { RenderWhen } from "./RenderWhen";
-import { ModalState, ModalProps } from "./ModalState";
-import { changeHandler } from "./HandleChange";
+import { RenderWhen } from "../../../shared/RenderWhen";
+import { ModalState, ModalProps } from "../../../shared/ModalState";
+import { changeHandler } from "../../../shared/HandleChange";
+import { ModalForm } from "../../../shared/ModalForm";
 
 export const availabilityStates = compose<
   AvailabilityModalProps,
@@ -38,13 +39,13 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
 }) => {
   return (
     <React.Fragment>
-      <Dialog fullWidth open={open} onClose={handleClose}>
+      <Dialog fullWidth open={open} scroll="body" onClose={handleClose}>
         <div>
           <DialogTitle>Availability</DialogTitle>
           <DialogContent>
             <Container>
               <Row>
-                <form>
+                <ModalForm>
                   <AvailabilitySelect
                     value={available}
                     handleChange={handleChange}
@@ -52,7 +53,6 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
                   <RenderWhen when={available === availabilityTypes.ROLLING}>
                     <FormControl fullWidth margin="normal">
                       <AdornField
-                        fullWidth
                         onChange={handleChange}
                         InputLabelProps={{ shrink: true }}
                         defaultValue={60}
@@ -60,7 +60,9 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
                         position="end"
                         label="Number of days into the future."
                       >
-                        rolling days
+                        <Typography variant="body2" style={{ width: "5rem" }}>
+                          rolling days
+                        </Typography>
                       </AdornField>
                     </FormControl>
                   </RenderWhen>
@@ -74,7 +76,7 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
                     </Typography>
                   </RenderWhen>
                   <FormActions handleNext={() => {}} handleCancel={() => {}} />
-                </form>
+                </ModalForm>
               </Row>
             </Container>
           </DialogContent>

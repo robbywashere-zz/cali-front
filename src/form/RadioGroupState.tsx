@@ -19,7 +19,9 @@ export const RadioGroupState = toRenderProps<
     handleChange: (e: any, v: string | number | boolean) => void;
     selectedValue: string;
   },
-  {}
+  {
+    defaultSelected?: string | number;
+  }
 >(
   compose(
     withRadioGroupState,

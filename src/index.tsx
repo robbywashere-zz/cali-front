@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Routes from "./Routes";
-//import registerServiceWorker from "./misc/registerServiceWorker";
+import { setConfig } from "react-hot-loader";
+setConfig({ logLevel: "no-errors-please" });
+//https://github.com/styled-components/styled-components/issues/1589
 
 import withRoot from "./misc/withRoot";
 import { Provider } from "react-redux";

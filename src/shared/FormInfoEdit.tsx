@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, FormLabel, Grid } from "@material-ui/core";
 import styled from "styled-components";
-import { Container, Row, Item } from "../../elements/Gridding";
+import { Container, Row, Item } from "../elements/Gridding";
 
 const FormInfoText = styled(Typography).attrs({
   variant: "body1",

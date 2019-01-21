@@ -1,13 +1,13 @@
-import { Container } from "../../elements/Gridding";
+import { Container } from "../../../elements/Gridding";
 import React from "react";
 import styled from "styled-components";
 import { SlotList } from "./Slots";
 import { Month, DayRow, DayRowLabel, Week } from "./Month";
 import { DAYS } from "./AvailabilityCalendar";
 import { DayWithCalendarContext } from "./Day";
-import { RenderWhen } from "./RenderWhen";
+import { RenderWhen } from "../../../shared/RenderWhen";
 import { withStateHandlers } from "recompose";
-import { changeHandler } from "./HandleChange";
+import { changeHandler } from "../../../shared/HandleChange";
 import { Button } from "@material-ui/core";
 
 export type CalendarProps = {

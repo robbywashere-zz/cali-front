@@ -1,9 +1,9 @@
 import React from "react";
-import { ColorSelector } from "../../form/ColorSelector";
-import { AdornText } from "../AdornText";
-import { FormField } from "../../form/FormField";
-import { adorn } from "../AdornText";
-import { FormActions } from "./FormActions";
+import { ColorSelector } from "../../../form/ColorSelector";
+import { AdornText } from "../../../shared/AdornText";
+import { FormField } from "../../../form/FormField";
+import { adorn } from "../../../shared/AdornText";
+import { FormActions } from "../../../shared/FormActions";
 import { InjectedFormikProps, withFormik } from "formik";
 
 export const AdornFormField = adorn(FormField);

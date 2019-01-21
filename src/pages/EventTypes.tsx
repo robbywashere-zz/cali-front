@@ -22,7 +22,7 @@ export default () => (
   <Page>
     <Row xs>
       <Title>Event Types</Title>
-      <RowFAB right component={Link} to="/new-event" />
+      <RowFAB right component={Link} to="/event/new" />
       <Divider />
     </Row>
     <Events>

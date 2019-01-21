@@ -82,10 +82,10 @@ const EventCardHeader = styled(CardHeader).attrs({
     style: { maxWidth: "134px" }
   }
 })``;
-const EventBodyText = styled(Typography).attrs({
+const EventBodyText = styled(Typography).attrs(() => ({
   color: "textSecondary",
   component: "p"
-})``;
+}))``;
 const EventBody: React.SFC<{}> = ({ children }) => (
   <CardContent>
     <EventBodyText>{children}</EventBodyText>
