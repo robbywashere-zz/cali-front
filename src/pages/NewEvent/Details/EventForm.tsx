@@ -37,6 +37,7 @@ export const NewEventForm: React.SFC<
       required
       label="Event Name"
       name="name"
+      defaultValue={values.name}
       onChange={handleChange}
     />
     <FormField label="Location" name="location" onChange={handleChange} />
@@ -72,6 +73,12 @@ export const withEventFormik = withFormik<
   },
   NewEventFormValues
 >({
+  mapPropsToValues: ({
+    link = "",
+    linkBase = "",
+    eventColor = "",
+    name = ""
+  }) => ({ link, linkBase, eventColor, name }),
   validateOnChange: true,
   validate: (values, props) => {
     if (typeof props.handleChange === "function") props.handleChange(values);

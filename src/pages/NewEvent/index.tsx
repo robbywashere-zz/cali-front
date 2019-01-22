@@ -84,6 +84,8 @@ const NewEventDetails: React.SFC<NewEventDetails> = ({
           </Button>
         </FormActions>
         <NewEventFormik
+          name={en}
+          eventColor={ec}
           handleChange={({ eventColor, name }) => {
             eventColorChange(eventColor);
             eventNameChange(name);

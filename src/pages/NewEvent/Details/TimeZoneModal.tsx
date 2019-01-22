@@ -14,7 +14,10 @@ import {
   TimeZoneTypeSelector,
   timeZoneStates
 } from "./TimezoneTypeSelect";
-import TimeZoneLocationSelector from "./TimeZoneLocationSelector";
+import TimeZoneLocationSelector from "./TimeZoneSearch";
+import { TZFinder } from "./timezoneFinder";
+import TZ from "../../../tz.json";
+const tzFinder = new TZFinder(TZ);
 
 export type TimeZoneModalProps = {
   tzType: timezoneType;
@@ -53,7 +56,7 @@ export const TimeZoneModal: React.SFC<TimeZoneModalProps> = ({
                       Invitees will see your availability in a locked time zone.
                       Recommended for in-person meetings.
                     </Typography>
-                    <TimeZoneLocationSelector />
+                    <TimeZoneLocationSelector tzFinder={tzFinder} />
                   </RenderWhen>
                   <FormActions handleNext={() => {}} handleCancel={() => {}} />
                 </ModalForm>
