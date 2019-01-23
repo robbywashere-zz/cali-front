@@ -1,8 +1,6 @@
 import { compose, toRenderProps, withState, withHandlers } from "recompose";
 import React from "react";
 
-type Event = React.ChangeEvent<{}>;
-
 const withRadioGroupState = withState<
   { defaultSelected?: {} },
   {},

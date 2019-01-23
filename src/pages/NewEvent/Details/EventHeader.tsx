@@ -5,7 +5,7 @@ import React from "react";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 export type NewEventHeaderProps = {
   title?: string;
-  color?: string;
+  color: string;
   icon?: React.ComponentType<SvgIconProps>;
 };
 

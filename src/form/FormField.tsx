@@ -1,11 +1,14 @@
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import React from "react";
-export const FormField = ({
+
+export const FormField: React.ComponentType<
+  TextFieldProps & { variant?: "outlined" }
+> = ({
   fullWidth = true,
-  variant = "outlined",
-  margin = "normal",
+  variant = "outlined" as "outlined",
+  margin = "normal" as TextFieldProps["margin"],
   ...props
-}: TextFieldProps & { variant?: "outlined" }) => (
+}) => (
   <TextField
     fullWidth={fullWidth}
     variant={variant}

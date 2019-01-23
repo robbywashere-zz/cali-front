@@ -30,7 +30,7 @@ export const ModalState = compose<
 
 export type ModalProps = {
   open: boolean;
-  handleOpen: (event: any) => void;
-  handleClose: (event: any) => void;
-  children: (handleOpen: (event: any) => void) => void;
+  handleOpen: (event?: any) => void;
+  handleClose: (event?: any) => void;
+  children: (handleOpen: (event?: any) => void) => void;
 };

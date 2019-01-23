@@ -35,7 +35,11 @@ const debounceEventName = debounceHandler("eventNameChange", 200);
 const InviteeQuestions = ({}) => (
   <ExpansionPanel defaultExpanded={false}>
     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <NewEventHeader icon={QuestionAnswerIcon} title="Invitee Questions" />
+      <NewEventHeader
+        color="#CCC"
+        icon={QuestionAnswerIcon}
+        title="Invitee Questions"
+      />
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
       <Item xs={7}>

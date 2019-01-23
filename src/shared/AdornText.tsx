@@ -13,21 +13,26 @@ export const AdornText: React.SFC<{}> = ({ children }) => (
   </Typography>
 );
 
-export const adorn = mapProps<
-  TextFieldProps,
-  {
-    position?: InputAdornmentProps["position"];
-    children?: React.ReactNode;
-    inputProps?: InputProps;
-  } & TextFieldProps
->(({ children, position = "start" as "start" | "end", ...rest }) => ({
-  ...rest,
-  InputProps: {
-    [`${position}Adornment`]: (
-      <InputAdornment position={position}>{children}</InputAdornment>
-    ),
-    ...rest.inputProps
-  }
-}));
+export function adorn<T extends string>(name: T) {
+  return mapProps<
+    TextFieldProps,
+    {
+      position?: InputAdornmentProps["position"];
+      children?: React.ReactNode;
+      inputProps?: InputProps;
+    } & TextFieldProps
+  >(({ children, position = "start" as "start" | "end", ...rest }) => ({
+    ...rest,
+    name,
+    InputProps: {
+      [`${position}Adornment`]: (
+        <InputAdornment position={position}>{children}</InputAdornment>
+      ),
+      ...rest.inputProps
+    }
+  }));
+}
 
-export const AdornField = adorn(TextField);
+export const typedAdornField = function<T extends string>(name: T) {
+  return adorn<T>(name)(TextField);
+};

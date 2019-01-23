@@ -1,12 +1,16 @@
 import React from "react";
 import { ColorSelector } from "../../../form/ColorSelector";
-import { AdornText } from "../../../shared/AdornText";
+import { AdornText, typedAdornField } from "../../../shared/AdornText";
 import { FormField } from "../../../form/FormField";
 import { adorn } from "../../../shared/AdornText";
 import { FormActions } from "../../../shared/FormActions";
 import { InjectedFormikProps, withFormik } from "formik";
+import { slugify, combine } from "../../../shared/util";
+import { anyEvent } from "../../../shared/HandleChange";
 
-export const AdornFormField = adorn(FormField);
+//export const AdornFormField = adorn(FormField);
+
+export const EventLinkField = adorn("link")(FormField); //typedAdornField("event");
 
 export type NewEventFormProps = {
   linkBase?: string;
@@ -29,6 +33,7 @@ export const NewEventForm: React.SFC<
   values,
   errors,
   handleSubmit,
+  setFieldValue,
   handleChange
 }) => (
   <form noValidate onSubmit={handleSubmit} autoComplete="off">
@@ -38,6 +43,9 @@ export const NewEventForm: React.SFC<
       label="Event Name"
       name="name"
       defaultValue={values.name}
+      onBlur={e =>
+        !values.link ? setFieldValue("link", slugify(values.name)) : null
+      }
       onChange={handleChange}
     />
     <FormField label="Location" name="location" onChange={handleChange} />
@@ -48,15 +56,21 @@ export const NewEventForm: React.SFC<
       label="Description/Instructions"
       name="description"
     />
-    <AdornFormField
+    <EventLinkField
       required
       error={!!errors.link}
       onChange={handleChange}
+      value={values.link}
+      onBlur={event =>
+        !event.target.value
+          ? setFieldValue("link", slugify(values.name)) //handleChange(anyEvent("event", slugify(values.name), event))
+          : handleChange(event)
+      }
+      defaultValue={values.link || slugify(values.name)}
       label="Event Link"
-      name="link"
     >
       <AdornText>{linkBase}</AdornText>
-    </AdornFormField>
+    </EventLinkField>
     <ColorSelector
       name="eventColor"
       handleChange={handleChange}

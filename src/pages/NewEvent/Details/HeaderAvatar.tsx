@@ -1,20 +1,33 @@
 import styled from "styled-components";
 import Avatar from "@material-ui/core/Avatar";
-import * as muiColors from "@material-ui/core/colors";
+import { readableColor } from "polished";
 import React from "react";
-export const HeaderAvatar = styled(({ title, icon: Icon, color, ...props }) => (
-  <Avatar {...props}>
-    {Icon ? (
-      <Icon />
-    ) : (
-      title
-        .trim()
-        .substr(0, 3)
-        .toUpperCase()
-    )}
-  </Avatar>
-))`
+import * as muiColors from "@material-ui/core/colors";
+type AvatarPropType = {
+  title: string;
+  icon?: React.ComponentType;
+  color?: string;
+};
+
+export const HeaderAvatar = styled<React.ComponentType<AvatarPropType>>(
+  ({ title, icon: Icon, color, ...props }) => (
+    <Avatar {...props}>
+      {Icon ? (
+        <Icon />
+      ) : (
+        title
+          .trim()
+          .substr(0, 3)
+          .toUpperCase()
+      )}
+    </Avatar>
+  )
+)`
   margin-right: ${({ theme }) => theme.spacing.unit * 3}px;
-  background-color: ${({ color }) =>
-    ((muiColors as any)[color] || {})["400"]} !important;
+  color: #fff;
+  background-color: ${({ color }) => resolveColor(color)} !important;
 `;
+
+function resolveColor(color: string) {
+  return ((muiColors as any)[color] || {})["400"] || color;
+}

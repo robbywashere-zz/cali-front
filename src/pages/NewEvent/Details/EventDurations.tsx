@@ -49,45 +49,47 @@ function TimezoneEditModal() {
   );
 }
 
-export function EventDurations() {
-  return (
-    <ExpansionPanel defaultExpanded={true}>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <EventTimeHeader />
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Container>
-          <Row>
-            <EventDurationsSelect />
-          </Row>
-          <Row>
-            <FormInfoEdit
-              label="Date Range"
-              info="Events can be scheduled on rolling days"
-            >
-              <AvailabilityEditModal />
-            </FormInfoEdit>
-          </Row>
+export class EventDurations extends React.Component {
+  render() {
+    return (
+      <ExpansionPanel defaultExpanded={true}>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <EventTimeHeader />
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Container>
+            <Row>
+              <EventDurationsSelect />
+            </Row>
+            <Row>
+              <FormInfoEdit
+                label="Date Range"
+                info="Events can be scheduled on rolling days"
+              >
+                <AvailabilityEditModal />
+              </FormInfoEdit>
+            </Row>
 
-          <Row>
-            <FormInfoEdit
-              label="Event Timezone"
-              info="You're in Central Time - US & Canada. Your invitees will see
+            <Row>
+              <FormInfoEdit
+                label="Event Timezone"
+                info="You're in Central Time - US & Canada. Your invitees will see
                 your availability in their local time zone."
-            >
-              <TimezoneEditModal />
-            </FormInfoEdit>
-          </Row>
-          <Row>
-            <AvailabilityCalendar />
-          </Row>
-        </Container>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-  );
+              >
+                <TimezoneEditModal />
+              </FormInfoEdit>
+            </Row>
+            <Row>
+              <AvailabilityCalendar />
+            </Row>
+          </Container>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  }
 }
 const EventTimeHeader = withProps({
-  color: `${({ theme }: { theme: Theme }) => theme.palette.primary.light}`, ///???
+  color: "darkGrey", //`${({ theme }: { theme: Theme }) => theme.palette.primary.light}`, ///???
   icon: InsertInvitationIcon,
   title: "Duration / Schedule"
 })(NewEventHeader);

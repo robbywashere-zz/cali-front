@@ -1,6 +1,6 @@
 import React from "react";
 import { Radio, FormControlLabel } from "@material-ui/core";
-import { AdornField } from "../../../shared/AdornText";
+import { typedAdornField } from "../../../shared/AdornText";
 
 type OnChangeCB = (event: { target: { value: string } }, value: string) => void;
 
@@ -8,6 +8,8 @@ export type CustomTimeSelectRadioProps = {
   onChange: OnChangeCB;
   value: string;
 };
+
+const CustomAdornField = typedAdornField("custom");
 
 const initialState = { value: "85" };
 export class CustomTimeSelectRadio extends React.Component<
@@ -40,7 +42,7 @@ export class CustomTimeSelectRadio extends React.Component<
           />
         }
         label={
-          <AdornField
+          <CustomAdornField
             defaultValue={this.state.value}
             children={"custom"}
             onChange={this.updateOnEdit(onChange)}

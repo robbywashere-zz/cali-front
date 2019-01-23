@@ -7,8 +7,7 @@ import styled from "styled-components";
 import { List, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { TZType, TZFinder } from "./timezoneFinder";
-//import TZ from "../../../tz.json";
-//import { TimeZoneTypeSelector } from "./TimezoneTypeSelect";
+import { anyEvent, ChangeHandlerProps } from "../../../shared/HandleChange";
 
 export const TimeZoneList = styled(List)`
   && {
@@ -31,7 +30,8 @@ export const TZListSubHeader = styled(ListSubheader)`
   }
 `;
 
-export interface TimeZoneSearchProps {
+export interface TimeZoneSearchProps
+  extends ChangeHandlerProps<{ tzLocale: string }> {
   tzFinder: TZFinder;
 }
 
@@ -67,6 +67,7 @@ export class TimeZoneSearch extends React.Component<
   };
 
   render() {
+    const { handleChange, tzLocale } = this.props;
     const TZ = this.state.zones;
     return (
       <TZSelectorContainer>
@@ -84,7 +85,13 @@ export class TimeZoneSearch extends React.Component<
               <TimeZoneListUL>
                 <TZListSubHeader>{continent}</TZListSubHeader>
                 {TZ[continent].map(([locale, time], i) => (
-                  <ListItem button key={`${locale}-${i}`}>
+                  <ListItem
+                    value={locale}
+                    onClick={() => handleChange(anyEvent("tzLocale", locale))}
+                    selected={locale === tzLocale}
+                    button
+                    key={`${locale}-${i}`}
+                  >
                     <ListItemText primary={locale} secondary={time} />
                   </ListItem>
                 ))}
@@ -96,6 +103,7 @@ export class TimeZoneSearch extends React.Component<
     );
   }
 }
+
 export const TZSelectorContainer = styled.div`
   border: 1px solid ${p => p.theme.palette.primary.main};
   border-radius: ${p => p.theme.shape.borderRadius}px;
