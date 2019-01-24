@@ -4,37 +4,39 @@ import { AdornText, typedAdornField } from "../../../shared/AdornText";
 import { FormField } from "../../../form/FormField";
 import { adorn } from "../../../shared/AdornText";
 import { FormActions } from "../../../shared/FormActions";
-import { InjectedFormikProps, withFormik } from "formik";
+import {
+  InjectedFormikProps,
+  withFormik,
+  FormikHandlers,
+  FormikActions,
+  FormikBag
+} from "formik";
 import { slugify, combine } from "../../../shared/util";
 import { anyEvent } from "../../../shared/HandleChange";
 
-//export const AdornFormField = adorn(FormField);
-
 export const EventLinkField = adorn("link")(FormField); //typedAdornField("event");
 
-export type NewEventFormProps = {
-  linkBase?: string;
-  name?: string;
-  link?: string;
-  eventColor?: string;
-};
-
 export type NewEventFormValues = {
-  linkBase: string;
   name: string;
   link: string;
   eventColor: string;
 };
+export type NewEventFormProps = {
+  //name: string;
+  linkBase?: string;
+};
+export type NewEventFormikProps = InjectedFormikProps<
+  NewEventFormProps,
+  NewEventFormValues
+>;
 
-export const NewEventForm: React.SFC<
-  InjectedFormikProps<NewEventFormProps, NewEventFormValues>
-> = ({
+export const NewEventForm: React.SFC<NewEventFormikProps> = ({
   linkBase = "cali.com/robby/",
   values,
   errors,
   handleSubmit,
-  setFieldValue,
-  handleChange
+  handleChange,
+  setFieldValue
 }) => (
   <form noValidate onSubmit={handleSubmit} autoComplete="off">
     <FormField
@@ -80,24 +82,30 @@ export const NewEventForm: React.SFC<
     <FormActions dividerTop handleNext={() => {}} handleCancel={() => {}} />
   </form>
 );
-export const withEventFormik = withFormik<
-  NewEventFormProps & {
+/*NewEventFormProps & {
     handleChange?: (values: NewEventFormValues) => void;
     validate?: (values: NewEventFormValues, props: NewEventFormProps) => void;
-  },
+  },*/
+const initialValues = {
+  name: "my event",
+  linkBase: "cali.com/robby/",
+  link: "",
+  eventColor: "blue"
+};
+export const withEventFormik = withFormik<
+  NewEventFormProps,
   NewEventFormValues
 >({
-  mapPropsToValues: ({
-    link = "",
-    linkBase = "",
-    eventColor = "",
-    name = ""
-  }) => ({ link, linkBase, eventColor, name }),
   validateOnChange: true,
-  validate: (values, props) => {
+  mapPropsToValues: ({}) => initialValues,
+  /*mapPropsToValues: ({
+    linkBase = "",
+    values
+  }) => ({ link, linkBase, eventColor, name }),*/
+  /*validate: (values, props) => {
     if (typeof props.handleChange === "function") props.handleChange(values);
     if (typeof props.validate === "function")
       return props.validate(values, props);
-  },
+  },*/
   handleSubmit: () => {}
 });

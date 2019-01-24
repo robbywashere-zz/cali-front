@@ -15,9 +15,10 @@ import { EventDurations } from "./Details/EventDurations";
 import { FormActions } from "../../shared/FormActions";
 import { Button } from "@material-ui/core";
 import { withEventFormik, NewEventForm } from "./Details/EventForm";
+import { InjectedFormikProps } from "formik";
 
-export const NewEventFormik = withEventFormik(NewEventForm);
-
+//export const NewEventFormik = withEventFormik(NewEventForm);
+/*
 export const withEventColorState = withState(
   "eventColor",
   "eventColorChange",
@@ -28,7 +29,7 @@ export const withEventNameState = withState(
   "eventName",
   "eventNameChange",
   "My Event"
-);
+);*/
 
 const debounceEventName = debounceHandler("eventNameChange", 200);
 
@@ -58,51 +59,50 @@ const InviteeQuestions = ({}) => (
   </ExpansionPanel>
 );
 
-type NewEventDetails = {
+/*type NewEventDetails = {
   eventColor: string;
   eventName: string;
   eventColorChange: (color: string) => string;
   eventNameChange: (name: string) => string;
+};*/
+
+export type NewEventFormValues = {
+  // linkBase: string;
+  name: string;
+  link: string;
+  eventColor: string;
 };
 
-const NewEventDetails: React.SFC<NewEventDetails> = ({
-  eventColor: ec,
-  eventName: en,
-  eventColorChange,
-  eventNameChange
-}) => (
-  <ExpansionPanel defaultExpanded={false}>
-    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <NewEventHeader color={ec} title={en} />
-    </ExpansionPanelSummary>
-    <ExpansionPanelDetails>
-      <Item xs={7}>
-        <FormActions
-          dividerBottom
-          handleNext={() => {}}
-          handleCancel={() => {}}
-        >
-          <Button size="small">Cancel</Button>
-          <Button size="small" type="submit" color="primary">
-            Next
-          </Button>
-        </FormActions>
-        <NewEventFormik
-          name={en}
-          eventColor={ec}
-          handleChange={({ eventColor, name }) => {
-            eventColorChange(eventColor);
-            eventNameChange(name);
-          }}
-        />
-      </Item>
-    </ExpansionPanelDetails>
-  </ExpansionPanel>
-);
+type NewEventDetails = InjectedFormikProps<{}, NewEventFormValues>;
 
-const NewEventDetailsWithWatcher = withEventColorState(
-  withEventNameState(NewEventDetails)
-);
+const NewEventDetails: React.SFC<NewEventDetails> = props => {
+  const { values } = props;
+  return (
+    <ExpansionPanel defaultExpanded={false}>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <NewEventHeader color={values.eventColor} title={values.name} />
+        <pre>{JSON.stringify(values, null, 4)}</pre>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Item xs={7}>
+          <FormActions
+            dividerBottom
+            handleNext={() => {}}
+            handleCancel={() => {}}
+          >
+            <Button size="small">Cancel</Button>
+            <Button size="small" type="submit" color="primary">
+              Next
+            </Button>
+          </FormActions>
+          <NewEventForm {...props} />
+        </Item>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  );
+};
+
+const NewEventDetailsFormik = withEventFormik(NewEventDetails);
 
 export const NewEventPage = () => (
   <Page>
@@ -112,7 +112,7 @@ export const NewEventPage = () => (
     </Row>
     <Container justify="center">
       <Row sm={10}>
-        <NewEventDetailsWithWatcher />
+        <NewEventDetailsFormik />
       </Row>
     </Container>
     <Container justify="center">
