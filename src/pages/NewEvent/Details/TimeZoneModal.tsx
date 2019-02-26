@@ -19,10 +19,11 @@ import { ChangeResetHandlerProps } from "../../../shared/HandleChange";
 import { changeHandler } from "../../../shared/HandleChange";
 const tzFinder = new TZFinder(TZ);
 
-const initialState = {
+export const tzInitialState = {
   tzType: "local" as timezoneType,
   tzLocale: "Pacific Time - US & Canada"
 };
+//export const tzChangeHandler = changeHandler(tzInitialState);
 
 export const timeZoneStates = compose<
   TimeZoneModalProps,
@@ -30,12 +31,12 @@ export const timeZoneStates = compose<
     children: ModalProps["handleOpen"];
   }
 >(
-  changeHandler(initialState),
+  // tzChangeHandler,
   ModalState
 );
 
 export type TimeZoneModalProps = ModalProps &
-  ChangeResetHandlerProps<typeof initialState>;
+  ChangeResetHandlerProps<typeof tzInitialState>;
 
 export class TimeZoneModal extends React.Component<TimeZoneModalProps> {
   render() {

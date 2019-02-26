@@ -12,45 +12,27 @@ import { EventDurationsSelect } from "./EventDurationsSelect";
 import { FormInfoEdit } from "../../../shared/FormInfoEdit";
 import AvailabilityModal from "../Availability/AvailabilityModal";
 import AvailabilityCalendar from "../Availability/AvailabilityCalendar";
-import { Theme } from "@material-ui/core";
+import {
+  changeHandler,
+  ChangeResetHandlerProps
+} from "../../../shared/HandleChange";
 import TimeZoneModal from "./TimeZoneModal";
+import { avInitialState } from "../Availability/AvailabilityModal";
+import { tzInitialState } from "./TimeZoneModal";
 
-const AvailabilityEditModal: React.SFC<{}> = () => {
-  return (
-    <AvailabilityModal>
-      {handleOpen => (
-        <Button
-          size="small"
-          onClick={handleOpen}
-          variant="outlined"
-          color="primary"
-        >
-          edit
-        </Button>
-      )}
-    </AvailabilityModal>
-  );
-};
+const withDurationState = changeHandler({
+  ...avInitialState,
+  ...tzInitialState
+});
 
-function TimezoneEditModal() {
-  return (
-    <TimeZoneModal>
-      {handleOpen => (
-        <Button
-          size="small"
-          onClick={handleOpen}
-          variant="outlined"
-          color="primary"
-        >
-          edit
-        </Button>
-      )}
-    </TimeZoneModal>
-  );
-}
+type EventDurationStateProps = ChangeResetHandlerProps<
+  typeof avInitialState & typeof tzInitialState
+>;
 
+//export class EventDurations extends React.Component<EventDurationStateProps> {
 export class EventDurations extends React.Component {
   render() {
+    // const { tzType, tzLocale, available, handleChange } = this.props;
     return (
       <ExpansionPanel defaultExpanded={true}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -66,7 +48,18 @@ export class EventDurations extends React.Component {
                 label="Date Range"
                 info="Events can be scheduled on rolling days"
               >
-                <AvailabilityEditModal />
+                <AvailabilityModal>
+                  {handleOpen => (
+                    <Button
+                      size="small"
+                      onClick={handleOpen}
+                      variant="outlined"
+                      color="primary"
+                    >
+                      edit
+                    </Button>
+                  )}
+                </AvailabilityModal>
               </FormInfoEdit>
             </Row>
 
@@ -76,7 +69,18 @@ export class EventDurations extends React.Component {
                 info="You're in Central Time - US & Canada. Your invitees will see
                 your availability in their local time zone."
               >
-                <TimezoneEditModal />
+                <TimeZoneModal>
+                  {handleOpen => (
+                    <Button
+                      size="small"
+                      onClick={handleOpen}
+                      variant="outlined"
+                      color="primary"
+                    >
+                      edit
+                    </Button>
+                  )}
+                </TimeZoneModal>
               </FormInfoEdit>
             </Row>
             <Row>

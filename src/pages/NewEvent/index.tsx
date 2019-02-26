@@ -81,7 +81,6 @@ const NewEventDetails: React.SFC<NewEventDetails> = props => {
     <ExpansionPanel defaultExpanded={false}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <NewEventHeader color={values.eventColor} title={values.name} />
-        <pre>{JSON.stringify(values, null, 4)}</pre>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Item xs={7}>

@@ -20,19 +20,21 @@ import {
 import { ModalForm } from "../../../shared/ModalForm";
 import { combine, edgeDelay } from "../../../shared/util";
 
-const initialState = { available: availabilityTypes.ROLLING };
+export const avInitialState = { available: availabilityTypes.ROLLING };
+//export const availabilityChangeHandler = changeHandler(avInitialState);
+
 export const availabilityStates = compose<
   AvailabilityModalProps,
   {
     children: ModalProps["handleOpen"];
   }
 >(
-  changeHandler(initialState),
   ModalState
+  // availabilityChangeHandler
 );
 
 export type AvailabilityModalProps = ModalProps &
-  ChangeResetHandlerProps<typeof initialState>;
+  ChangeResetHandlerProps<typeof avInitialState>;
 
 const AvailableAdornField = typedAdornField("available");
 
@@ -62,7 +64,6 @@ export const AvailabilityModal: React.SFC<AvailabilityModalProps> = ({
                     <FormControl fullWidth margin="normal">
                       <AvailableAdornField
                         onChange={handleChange as any}
-                        //name="available"
                         InputLabelProps={{ shrink: true }}
                         defaultValue={60}
                         margin="normal"

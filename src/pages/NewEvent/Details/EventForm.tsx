@@ -78,18 +78,14 @@ export const NewEventForm: React.SFC<NewEventFormikProps> = ({
       handleChange={handleChange}
       selectedValue={values.eventColor}
     />
-    <pre>{JSON.stringify(values, null, 4)}</pre>
     <FormActions dividerTop handleNext={() => {}} handleCancel={() => {}} />
   </form>
 );
-/*NewEventFormProps & {
-    handleChange?: (values: NewEventFormValues) => void;
-    validate?: (values: NewEventFormValues, props: NewEventFormProps) => void;
-  },*/
+
 const initialValues = {
   name: "my event",
   linkBase: "cali.com/robby/",
-  link: "",
+  link: "my-event",
   eventColor: "blue"
 };
 export const withEventFormik = withFormik<
