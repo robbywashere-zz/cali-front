@@ -10,7 +10,7 @@ export type NewEventHeaderProps = {
 };
 
 export const NewEventHeader = ({
-  title = "My Event",
+  title = "???",
   color,
   icon
 }: NewEventHeaderProps) => (

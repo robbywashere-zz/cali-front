@@ -1,20 +1,15 @@
 import React from "react";
 import { ColorSelector } from "../../../form/ColorSelector";
-import { AdornText, typedAdornField } from "../../../shared/AdornText";
+import { AdornText } from "../../../shared/AdornText";
 import { FormField } from "../../../form/FormField";
 import { adorn } from "../../../shared/AdornText";
 import { FormActions } from "../../../shared/FormActions";
-import {
-  InjectedFormikProps,
-  withFormik,
-  FormikHandlers,
-  FormikActions,
-  FormikBag
-} from "formik";
-import { slugify, combine } from "../../../shared/util";
-import { anyEvent } from "../../../shared/HandleChange";
+import { connect } from "react-redux";
+import { EventState } from "../../../redux/Events";
+import { InjectedFormikProps, withFormik } from "formik";
+import { slugify } from "../../../shared/util";
 
-export const EventLinkField = adorn("link")(FormField); //typedAdornField("event");
+export const EventLinkField = adorn("link")(FormField);
 
 export type NewEventFormValues = {
   name: string;
@@ -26,12 +21,12 @@ export type NewEventFormProps = {
   linkBase?: string;
 };
 export type NewEventFormikProps = InjectedFormikProps<
-  NewEventFormProps,
+  NewEventFormProps & EventState,
   NewEventFormValues
 >;
 
 export const NewEventForm: React.SFC<NewEventFormikProps> = ({
-  linkBase = "cali.com/robby/",
+  linkBase = "cali.com/username/",
   values,
   errors,
   handleSubmit,
@@ -65,7 +60,7 @@ export const NewEventForm: React.SFC<NewEventFormikProps> = ({
       value={values.link}
       onBlur={event =>
         !event.target.value
-          ? setFieldValue("link", slugify(values.name)) //handleChange(anyEvent("event", slugify(values.name), event))
+          ? setFieldValue("link", slugify(values.name))
           : handleChange(event)
       }
       defaultValue={values.link || slugify(values.name)}
@@ -88,20 +83,20 @@ const initialValues = {
   link: "my-event",
   eventColor: "blue"
 };
+
+function mapStateToProps({ events }: { events: EventState }) {
+  return events;
+}
+
 export const withEventFormik = withFormik<
-  NewEventFormProps,
+  NewEventFormProps & EventState,
   NewEventFormValues
 >({
   validateOnChange: true,
-  mapPropsToValues: ({}) => initialValues,
-  /*mapPropsToValues: ({
-    linkBase = "",
-    values
-  }) => ({ link, linkBase, eventColor, name }),*/
-  /*validate: (values, props) => {
-    if (typeof props.handleChange === "function") props.handleChange(values);
-    if (typeof props.validate === "function")
-      return props.validate(values, props);
-  },*/
-  handleSubmit: () => {}
+  handleSubmit: () => {},
+  mapPropsToValues: () => ({ ...initialValues })
 });
+
+export const EventForm = connect(mapStateToProps)(
+  withEventFormik(NewEventForm)
+);

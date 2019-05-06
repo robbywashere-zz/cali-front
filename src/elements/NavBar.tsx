@@ -5,7 +5,7 @@ import { NavLink } from "./NavLink";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch, AnyAction } from "redux";
-import * as actions from "../redux/actions";
+import { actions } from "../redux/Login";
 import { NavMenu, NavMenuProps } from "./NavMenu";
 import React from "react";
 
@@ -41,9 +41,10 @@ const MenuAppBar: React.SFC<NavMenuProps> = ({ logout }) => (
 function mapDispatch(dispatch: Dispatch<AnyAction>) {
   return bindActionCreators(actions, dispatch);
 }
-const mapState = (state: { login: { authed: boolean } }) => ({
-  authed: state.login.authed
+const mapState = (state: { Login: { authed: boolean } }) => ({
+  authed: state.Login.authed
 });
+
 export default connect(
   mapState,
   mapDispatch

@@ -38,6 +38,7 @@
     "redux": "^4.0.0",
     "styled-components": "^4.1.3",
     "styled-media-query": "^2.0.2",
+    "typesafe-actions": "^4.2.0",
     "typescript": "^3.2.2",
     "yup": "^0.26.6"
   },

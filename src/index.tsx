@@ -1,3 +1,4 @@
+console.warn = () => {};
 import React from "react";
 import ReactDOM from "react-dom";
 import Routes from "./Routes";
@@ -8,14 +9,17 @@ setConfig({ logLevel: "no-errors-please" });
 import withRoot from "./misc/withRoot";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import { login } from "./redux/reducers";
+import { Login } from "./redux/Login";
+import { Events } from "./redux/Events";
 
 const persistedState = localStorage.getItem("ReduxStorage")
   ? JSON.parse(localStorage.getItem("ReduxStorage")!)
   : {};
 
-const store = createStore(
-  combineReducers({ login }),
+const metaStore = { Login, Events };
+export type RootState = typeof metaStore;
+export const store = createStore(
+  combineReducers(metaStore),
   persistedState,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__()

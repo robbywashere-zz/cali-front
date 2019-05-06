@@ -7,7 +7,7 @@ import { Password, TextField, TextFieldProps } from "../form/Fields";
 import { LockAvatar } from "../form/Misc";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch, AnyAction } from "redux";
-import * as actions from "../redux/actions";
+import { actions } from "../redux/Login";
 import { RouterProps } from "react-router";
 import { InputProps } from "@material-ui/core/Input";
 

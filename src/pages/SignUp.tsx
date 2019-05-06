@@ -9,12 +9,13 @@ import { RouterChildContext, RouterProps } from "react-router";
 
 type UpdateEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
+const initialState = {
+  username: "",
+  password: "",
+  confirmPassword: ""
+};
 class SignUp extends React.Component<RouterProps> {
-  state = {
-    username: "",
-    password: "",
-    confirmPassword: ""
-  };
+  state = initialState;
   submit = async (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     const { username, password, confirmPassword } = this.state;
@@ -25,7 +26,9 @@ class SignUp extends React.Component<RouterProps> {
       alert(`Login error ${e}`);
     }
   };
-  update = (property: string) => ({ target: { value } }: UpdateEvent) => {
+  update = (property: keyof typeof initialState) => ({
+    target: { value }
+  }: UpdateEvent) => {
     this.setState({ [property]: value });
   };
   render() {

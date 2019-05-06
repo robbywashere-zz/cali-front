@@ -10,12 +10,15 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { NewEventHeader } from "./Details/EventHeader";
 import debounceHandler from "@hocs/debounce-handler";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
-import { compose, withState } from "recompose";
 import { EventDurations } from "./Details/EventDurations";
 import { FormActions } from "../../shared/FormActions";
 import { Button } from "@material-ui/core";
-import { withEventFormik, NewEventForm } from "./Details/EventForm";
+import { withEventFormik, EventForm } from "./Details/EventForm";
 import { InjectedFormikProps } from "formik";
+import { connect } from "react-redux";
+import { EventReducer, saveEvent, eventActions } from "../../redux/Events";
+import { store, RootState } from "../../index";
+import { bindActionCreators, Dispatch } from "redux";
 
 //export const NewEventFormik = withEventFormik(NewEventForm);
 /*
@@ -59,28 +62,19 @@ const InviteeQuestions = ({}) => (
   </ExpansionPanel>
 );
 
-/*type NewEventDetails = {
-  eventColor: string;
-  eventName: string;
-  eventColorChange: (color: string) => string;
-  eventNameChange: (name: string) => string;
-};*/
-
-export type NewEventFormValues = {
-  // linkBase: string;
+export type NewEventDetailsProps = {
   name: string;
-  link: string;
   eventColor: string;
 };
 
-type NewEventDetails = InjectedFormikProps<{}, NewEventFormValues>;
-
-const NewEventDetails: React.SFC<NewEventDetails> = props => {
-  const { values } = props;
+const NewEventDetails: React.SFC<NewEventDetailsProps> = ({
+  name,
+  eventColor
+}) => {
   return (
     <ExpansionPanel defaultExpanded={false}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <NewEventHeader color={values.eventColor} title={values.name} />
+        <NewEventHeader color={eventColor} title={name} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Item xs={7}>
@@ -94,16 +88,20 @@ const NewEventDetails: React.SFC<NewEventDetails> = props => {
               Next
             </Button>
           </FormActions>
-          <NewEventForm {...props} />
+          <EventForm />
         </Item>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
 };
 
-const NewEventDetailsFormik = withEventFormik(NewEventDetails);
-
-export const NewEventPage = () => (
+export const NewEventPage = ({
+  color,
+  name
+}: {
+  color: string;
+  name: string;
+}) => (
   <Page>
     <Row>
       <Title>New Event</Title>
@@ -111,7 +109,7 @@ export const NewEventPage = () => (
     </Row>
     <Container justify="center">
       <Row sm={10}>
-        <NewEventDetailsFormik />
+        <NewEventDetails eventColor={color} name={name} />
       </Row>
     </Container>
     <Container justify="center">
@@ -127,4 +125,11 @@ export const NewEventPage = () => (
   </Page>
 );
 
-export default hot(module)(NewEventPage);
+//export default hot(module)(NewEventPage);
+
+export default connect<any, any, any, EventReducer>(
+  state => ({
+    name: state.Events.name
+  }),
+  p => bindActionCreators(eventActions, p.dispatch)
+)(NewEventPage);

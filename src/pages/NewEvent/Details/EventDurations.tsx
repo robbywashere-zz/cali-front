@@ -12,25 +12,11 @@ import { EventDurationsSelect } from "./EventDurationsSelect";
 import { FormInfoEdit } from "../../../shared/FormInfoEdit";
 import AvailabilityModal from "../Availability/AvailabilityModal";
 import AvailabilityCalendar from "../Availability/AvailabilityCalendar";
-import {
-  changeHandler,
-  ChangeResetHandlerProps
-} from "../../../shared/HandleChange";
 import TimeZoneModal from "./TimeZoneModal";
-import { avInitialState } from "../Availability/AvailabilityModal";
-import { tzInitialState } from "./TimeZoneModal";
-
-const withDurationState = changeHandler({
-  ...avInitialState,
-  ...tzInitialState
-});
-
-type EventDurationStateProps = ChangeResetHandlerProps<
-  typeof avInitialState & typeof tzInitialState
->;
-
 //export class EventDurations extends React.Component<EventDurationStateProps> {
 export class EventDurations extends React.Component {
+  state = {};
+
   render() {
     // const { tzType, tzLocale, available, handleChange } = this.props;
     return (
@@ -69,7 +55,11 @@ export class EventDurations extends React.Component {
                 info="You're in Central Time - US & Canada. Your invitees will see
                 your availability in their local time zone."
               >
-                <TimeZoneModal>
+                <TimeZoneModal
+                  tzType="locked"
+                  tzLocale="Pacific Time - US & Canada"
+                  handleChange={() => {}}
+                >
                   {handleOpen => (
                     <Button
                       size="small"

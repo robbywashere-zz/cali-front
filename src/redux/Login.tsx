@@ -1,8 +1,13 @@
-import { LOGIN, LOGOUT } from "./constants";
+export const LOGOUT = "LOGOUT";
+export const LOGIN = "LOGIN";
+export const actions = {
+  login: (profile: object) => ({ type: LOGIN, profile }),
+  logout: () => ({ type: LOGOUT })
+};
 
-type Actions = "LOGIN" | "LOGOUT";
+type Actions = typeof LOGIN | typeof LOGOUT;
 
-export const login = (
+export const Login = (
   state = { authed: false, profile: {} },
   action: { type: Actions; [x: string]: string }
 ) => {
